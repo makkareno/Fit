@@ -151,7 +151,7 @@ p { margin: 0; }
 }
 .notice p { flex: 1; min-width: 0; font-size: var(--t-sm); }
 .notice b { color: var(--rojo); }
-.notice button { background: none; border: 0; color: var(--tinta-2); font-size: 1.2rem; line-height: 1; padding: 0 4px; }
+.notice .x { background: none; border: 0; color: var(--tinta-2); font-size: 1.2rem; line-height: 1; padding: 0 4px; }
 
 /* ---------- fight card ---------- */
 .cartel {
@@ -473,6 +473,67 @@ p { margin: 0; }
 .t-next b { color: var(--tinta); }
 .t-controls { display: flex; gap: var(--s-3); flex-wrap: wrap; justify-content: center; margin-top: auto; padding-top: var(--s-3); }
 
+/* ---------- gimnasio ---------- */
+.mode { display: grid; grid-template-columns: repeat(2, 1fr); background: var(--sombra); border: 2px solid var(--cuerda); border-radius: 8px; padding: 3px; }
+.mode button { background: none; border: 0; border-radius: 5px; padding: .55rem 0; font-family: var(--f-label); font-weight: 800; font-size: var(--t-md); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-2); }
+.mode button.on { background: var(--oro); color: var(--sombra); }
+.mini-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-2); }
+.mini-stats div { background: var(--sombra); border-radius: 6px; padding: .5rem .7rem; }
+.mini-stats span { display: block; font-family: var(--f-label); font-weight: 700; font-size: var(--t-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); }
+.mini-stats b { font-family: var(--f-display); font-weight: 400; font-size: var(--t-lg); color: var(--oro); }
+.row-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-3); align-items: center; background: var(--lona); border: 2px solid var(--cuerda); border-radius: 6px; padding: var(--s-3); }
+.row-card b { display: block; font-family: var(--f-label); font-weight: 800; font-size: var(--t-lg); text-transform: uppercase; line-height: 1.1; }
+.row-card span { font-size: var(--t-sm); color: var(--tinta-2); }
+.dashed-btn { width: 100%; background: var(--lona-2); border: 2px dashed var(--cuerda); border-radius: 6px; padding: .7rem; font-family: var(--f-label); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.pr-row { display: grid; grid-template-columns: minmax(0, 1fr) 70px auto; gap: var(--s-3); align-items: center; padding: .55rem 0; border-bottom: 1px solid var(--lona-2); }
+.pr-row:last-child { border-bottom: 0; }
+.pr-row b { font-family: var(--f-label); font-weight: 800; text-transform: uppercase; line-height: 1.1; }
+.pr-row .v { font-family: var(--f-display); text-align: right; color: var(--oro); font-size: var(--t-sm); white-space: nowrap; }
+.check-list { display: grid; gap: 2px; max-height: 20rem; overflow-y: auto; }
+.check-list label { display: flex; gap: .6rem; align-items: center; padding: .35rem .2rem; font-size: var(--t-sm); cursor: pointer; }
+.check-list input { width: 20px; height: 20px; accent-color: var(--oro); flex: none; }
+.w-inner { max-width: 30rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--s-4); }
+.w-top { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-2); align-items: center; }
+.w-top .ttl { text-align: center; font-family: var(--f-label); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; min-width: 0; }
+.w-prog { display: grid; gap: 5px; }
+.w-prog i { height: 6px; border-radius: 3px; background: var(--lona-2); }
+.w-prog i.done { background: var(--turquesa); }
+.w-prog i.cur { background: var(--oro); }
+.sets { display: flex; flex-direction: column; gap: 6px; padding: var(--s-3); }
+.set-row { display: grid; grid-template-columns: 2rem minmax(0, 1fr) 4.4rem 3.4rem 2.5rem; gap: .45rem; align-items: center; padding: .35rem .15rem; border-radius: 5px; }
+.set-row.head { font-family: var(--f-label); font-weight: 700; font-size: var(--t-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); padding-block: 0; }
+.set-row.done { background: color-mix(in srgb, var(--turquesa) 12%, transparent); }
+.set-row.cur { outline: 2px solid var(--oro); }
+.set-row .n { text-align: center; font-family: var(--f-label); font-weight: 800; }
+.set-row .prev { font-size: var(--t-sm); color: var(--tinta-2); }
+.set-row input { width: 100%; text-align: center; background: var(--sombra); color: var(--tinta); border: 2px solid var(--cuerda); border-radius: 5px; padding: .4rem 0; font-family: var(--f-display); font-size: .95rem; -moz-appearance: textfield; }
+.set-row input::-webkit-inner-spin-button, .set-row input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.set-row .check { width: 38px; height: 38px; border-width: 2px; }
+.set-row .check svg { width: 18px; height: 18px; }
+.set-row.done .check { background: var(--turquesa); border-color: var(--sombra); }
+.set-row.done .check svg { stroke: var(--sombra); }
+.pr-hint { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: center; background: var(--sombra); border: 2px dashed var(--oro); border-radius: 6px; padding: .6rem .8rem; font-size: var(--t-sm); }
+.pr-hint .ico { width: 34px; height: 34px; border-radius: 50%; background: var(--oro); display: grid; place-items: center; }
+.rest { background: var(--lona); border: 2px solid var(--turquesa); border-radius: 6px; padding: var(--s-3); display: flex; flex-direction: column; gap: .5rem; }
+.rest .bar { height: 8px; background: var(--sombra); border-radius: 4px; overflow: hidden; }
+.rest .bar i { display: block; height: 100%; background: var(--turquesa); }
+
+/* ---------- recordatorios ---------- */
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.days button { height: 44px; border-radius: 6px; border: 2px solid var(--cuerda); background: var(--sombra); color: var(--tinta-2); font-family: var(--f-display); font-size: .9rem; padding: 0; }
+.days button.on { background: var(--oro); color: var(--sombra); border-color: var(--sombra); }
+.time-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); padding: .45rem 0; border-bottom: 1px solid var(--lona-2); }
+.time-row:last-child { border-bottom: 0; }
+.time-row input { background: var(--sombra); color: var(--tinta); border: 2px solid var(--cuerda); border-radius: 6px; padding: .3rem .5rem; font-family: var(--f-display); font-size: .9rem; }
+.switch { width: 52px; height: 30px; border-radius: 999px; border: 2px solid var(--cuerda); background: var(--sombra); position: relative; padding: 0; flex: none; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--cuerda); transition: left .15s; }
+.switch[aria-checked="true"] { background: var(--turquesa); border-color: var(--sombra); }
+.switch[aria-checked="true"]::after { left: 25px; background: var(--sombra); }
+.status { margin: 0; font-size: var(--t-sm); padding: .5rem .7rem; border-radius: 6px; background: var(--sombra); border: 1px solid var(--cuerda); }
+.status.ok { border-color: var(--turquesa); }
+.status.bad { border-color: var(--rojo); }
+.select { width: 100%; background: var(--sombra); color: var(--tinta); border: 2px solid var(--cuerda); border-radius: 6px; padding: .55rem; font: inherit; }
+
 .disclaimer { font-size: var(--t-xs); color: var(--tinta-2); text-align: center; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -521,6 +582,31 @@ const POOLS = [
   ["burpee", "escalador", "estrella", "rodillas", "caminata"]
 ];
 const UNIT = { reps: "reps", seg: "seg", min: "min" };
+
+const GYM_EX = {
+  banca: { name: "Press de banca", alias: "La Prensa del Técnico", reps: "8-10" },
+  inclinado: { name: "Press inclinado con mancuernas", alias: "Tope Inclinado", reps: "10-12" },
+  militar: { name: "Press militar con mancuernas", alias: "El Candado de Hombros", reps: "8-10" },
+  laterales: { name: "Elevaciones laterales", alias: "Alas de Halcón", reps: "12-15" },
+  triceps: { name: "Extensión de tríceps en polea", alias: "Látigo del Réferi", reps: "10-12" },
+  jalon: { name: "Jalón al pecho", alias: "Jalón de Cuerdas", reps: "8-10" },
+  remo: { name: "Remo con barra", alias: "Remo del Rudo", reps: "8-10" },
+  remo1: { name: "Remo con mancuerna", alias: "El Serrucho", reps: "10-12" },
+  facepull: { name: "Face pull", alias: "Jalón de Máscara", reps: "12-15" },
+  curl: { name: "Curl de bíceps", alias: "Brazos de Campeón", reps: "10-12" },
+  sentadilla: { name: "Sentadilla con barra", alias: "Sentadilla de Acero", reps: "6-8" },
+  muerto: { name: "Peso muerto", alias: "Levantamiento del Titán", reps: "5-6" },
+  prensa: { name: "Prensa de piernas", alias: "La Prensa del Barrio", reps: "10-12" },
+  hipthrust: { name: "Hip thrust", alias: "Puente de Acero", reps: "8-10" },
+  pantorrilla: { name: "Elevación de pantorrilla", alias: "Puntitas de Luchador", reps: "12-15" },
+  zancadas: { name: "Zancadas con mancuernas", alias: "Zancada Pesada", reps: "10-12" }
+};
+const GYM_ROUTINES = [
+  { id: "empuje", name: "Empuje del Técnico", desc: "Pecho, hombro y tríceps", ex: [["banca", 4], ["inclinado", 3], ["militar", 4], ["laterales", 3], ["triceps", 4]] },
+  { id: "jalon", name: "Jalón del Rudo", desc: "Espalda y bíceps", ex: [["jalon", 4], ["remo", 4], ["remo1", 3], ["facepull", 3], ["curl", 4]] },
+  { id: "piernas", name: "Piernas de Acero", desc: "Pierna y glúteo", ex: [["sentadilla", 4], ["muerto", 4], ["prensa", 3], ["hipthrust", 3], ["pantorrilla", 4]] }
+];
+const KG_PER_HIT = 25, GYM_XP = 180, PR_XP = 20, REST_S = 90, GYM_DMG_CAP = 450;
 
 const COMBATES = [
   { id: "calentamiento", name: "Calentamiento de Vestidor", desc: "Para los días de flojera. Son 4 minutos, no hay pretexto que aguante.", ex: ["estrella", "sentadilla", "rodillas", "puente", "escalador", "plancha"], work: 30, rest: 10, rounds: 1, xp: 60, dmg: 90 },
@@ -584,6 +670,7 @@ const BADGES = [
   { id: "rituales", icon: "5R", name: "Ritual completo", desc: "Los 5 rituales en un día", test: s => !!s.flags.rituales },
   { id: "madrugador", icon: "AM", name: "Madrugador", desc: "Entrena antes de las 8 a.m.", test: s => !!s.flags.madrugador },
   { id: "ruleta20", icon: "R", name: "Rey de la ruleta", desc: "Cumple 20 giros", test: s => s.totals.spins >= 20 },
+  { id: "fierro", icon: "KG", name: "Récord de fierro", desc: "Rompe un récord en el gym", test: s => s.gym.prCount > 0 },
   { id: "nivel5", icon: "N5", name: "Nivel 5", desc: "Llega a nivel 5", test: s => levelInfo(s.xp).lvl >= 5 },
   { id: "nivel10", icon: "N10", name: "Nivel 10", desc: "Llega a nivel 10", test: s => levelInfo(s.xp).lvl >= 10 }
 ];
@@ -598,6 +685,7 @@ const NAMES_B = ["de Fuego", "de Acero", "del Barrio", "de Medianoche", "Imparab
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const fmt = n => Math.round(n).toLocaleString("es-MX");
+const fmtKg = n => (Math.round(n * 10) / 10).toLocaleString("es-MX");
 const pad = n => String(n).padStart(2, "0");
 const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const today = () => keyOf(new Date());
@@ -735,6 +823,9 @@ function migrate(s) {
   s.badges = s.badges || {};
   s.bestStreak = s.bestStreak || 0;
   s.losses = s.losses || 0;
+  s.gym = Object.assign({ mode: "casa", rot: 0, custom: [], prs: {}, last: {}, hist: {}, lastVol: {}, prCount: 0, live: null }, s.gym || {});
+  s.rem = Object.assign({ on: false, days: [true, false, true, false, true, true, false], times: ["07:00", "07:00", "07:00", "07:00", "07:00", "07:00", "07:00"], entrenar: true, rudo: true, domingo: true, cal: "", calName: "" }, s.rem || {});
+  s.rem.ev = Object.assign({ train: [], rudo: {}, dom: null }, s.rem.ev || {});
   return s;
 }
 function newState(p) {
@@ -839,6 +930,7 @@ function applyGain(xp, dmg, label) {
       confetti: newRank
     });
   }
+  if (xp > 0) remOnActivity();
   checkBadges();
   save();
 }
@@ -1106,9 +1198,10 @@ function arenaHTML() {
   const spec = retoSpec();
   const d = day();
   const doneN = d.retos.filter(Boolean).length;
-  const notes = notices.map((n, i) => `<div class="notice"><p>${n}</p><button data-act="notice-close" data-i="${i}" aria-label="Cerrar aviso">×</button></div>`).join("");
+  const notes = notices.map((n, i) => `<div class="notice"><p>${n}</p><button class="x" data-act="notice-close" data-i="${i}" aria-label="Cerrar aviso">×</button></div>`).join("");
   const profe = pick(PROFE, rng("profe" + today()));
-  return `${notes}
+  const live = S.gym.live ? `<div class="notice" style="border-color:var(--oro);align-items:center"><p>Tienes una sesión de gimnasio a medias: <b style="color:var(--oro)">${esc(S.gym.live.name)}</b>.</p><button class="btn oro sm" data-act="w-resume">Continuar</button></div>` : "";
+  return `${live}${notes}
   <section class="cartel" aria-label="Pelea de la semana">
     <div class="cartel-top">
       <span class="eyebrow">Función de la semana</span>
@@ -1197,11 +1290,10 @@ function buildSteps(c) {
   }
   return steps;
 }
-function combateHTML() {
+function casaHTML() {
   const d = day();
   return `<section>
-    <h2 class="sec-title">Combates</h2>
-    <p class="muted small" style="margin-top:.25rem">Cronómetro guiado con campana y cuenta regresiva. Ajustado a tu nivel: ${DIFF_INFO[S.profile.diff].name}. Hoy llevas <b class="num">${d.rounds}</b> ${d.rounds === 1 ? "combate" : "combates"}.</p>
+    <p class="muted small">Cronómetro guiado con campana y cuenta regresiva. Ajustado a tu nivel: ${DIFF_INFO[S.profile.diff].name}. Hoy llevas <b class="num">${d.rounds}</b> ${d.rounds === 1 ? "combate" : "combates"}.</p>
   </section>
   ${COMBATES.map(c => {
     const mins = Math.round(buildSteps(c).reduce((a, s) => a + s.dur, 0) / 60);
@@ -1326,6 +1418,267 @@ function closeTimer() {
   window.scrollTo(0, 0);
 }
 
+/* ================= gimnasio ================= */
+let W = null;
+let editingRoutine = false;
+const routines = () => GYM_ROUTINES.concat(S.gym.custom);
+const rotIdx = () => { const n = routines().length; return ((S.gym.rot % n) + n) % n; };
+const routineSets = r => r.ex.reduce((a, e) => a + e[1], 0);
+const mmss = sec => `${Math.floor(sec / 60)}:${pad(sec % 60)}`;
+const gymHits = v => Math.min(GYM_DMG_CAP, Math.floor(v / KG_PER_HIT));
+
+function combateHTML() {
+  const gym = S.gym.mode === "gym";
+  return `<section style="display:flex;flex-direction:column;gap:.75rem">
+    <h2 class="sec-title">Combates</h2>
+    <div class="mode" role="group" aria-label="Dónde entrenas">
+      <button class="${gym ? "" : "on"}" data-act="mode" data-v="casa" aria-pressed="${!gym}">En casa</button>
+      <button class="${gym ? "on" : ""}" data-act="mode" data-v="gym" aria-pressed="${gym}">Gimnasio</button>
+    </div>
+  </section>
+  ${gym ? gymHTML() : casaHTML()}`;
+}
+
+function spark(h, color) {
+  const ks = (h || []).map(x => x[1]);
+  if (!ks.length) return `<span></span>`;
+  if (ks.length === 1) return `<svg viewBox="0 0 70 28" width="70" height="28" aria-hidden="true"><circle cx="66" cy="14" r="3.5" style="fill:${color}"/></svg>`;
+  const mn = Math.min(...ks), mx = Math.max(...ks), span = mx - mn || 1;
+  const pts = ks.map((k, i) => [2 + i * (64 / (ks.length - 1)), 24 - (k - mn) / span * 19]);
+  const end = pts[pts.length - 1];
+  return `<svg viewBox="0 0 70 28" width="70" height="28" role="img" aria-label="De ${fmtKg(ks[0])} a ${fmtKg(ks[ks.length - 1])} kg"><polyline points="${pts.map(q => q[0].toFixed(1) + "," + q[1].toFixed(1)).join(" ")}" style="fill:none;stroke:${color};stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round"/><circle cx="${end[0].toFixed(1)}" cy="${end[1].toFixed(1)}" r="3.5" style="fill:${color}"/></svg>`;
+}
+
+function recordsHTML() {
+  const ids = Object.keys(S.gym.prs).filter(id => GYM_EX[id]).sort((a, b) => S.gym.prs[b].date.localeCompare(S.gym.prs[a].date));
+  if (!ids.length) return "";
+  return `<section>
+    <div class="sec-head"><h2 class="sec-title">Tus récords</h2><span class="muted small">Mejor serie por ejercicio</span></div>
+    <div class="panel" style="margin-top:.75rem;padding-block:.25rem">${ids.slice(0, 8).map((id, i) => {
+      const r = S.gym.prs[id];
+      return `<div class="pr-row"><b>${GYM_EX[id].name}</b>${spark(S.gym.hist[id], i === 0 ? "var(--oro)" : "var(--turquesa)")}<span class="v">${fmtKg(r.kg)} kg × ${r.reps}</span></div>`;
+    }).join("")}</div>
+  </section>`;
+}
+
+function routineEditorHTML() {
+  return `<div class="panel" style="display:flex;flex-direction:column;gap:.75rem">
+    <div class="field"><label class="eyebrow" for="r-name">Nombre de la rutina</label><input id="r-name" maxlength="32" placeholder="Hombros de Titán" autocomplete="off"></div>
+    <span class="eyebrow">Ejercicios (3 series cada uno)</span>
+    <div class="check-list">${Object.keys(GYM_EX).map(id => `<label for="r-ex-${id}"><input type="checkbox" id="r-ex-${id}" value="${id}">${GYM_EX[id].name}</label>`).join("")}</div>
+    <div class="btn-row" style="justify-content:flex-start"><button class="btn sm" data-act="r-save">Guardar rutina</button><button class="link-btn" data-act="r-cancel">Cancelar</button></div>
+  </div>`;
+}
+
+function gymHTML() {
+  const rs = routines(), ri = rotIdx(), r = rs[ri], L = S.gym.live;
+  const lastVol = S.gym.lastVol[r.id];
+  const sets = routineSets(r);
+  const live = L ? `<div class="notice" style="border-color:var(--oro);align-items:center"><p><b style="color:var(--oro)">Sesión a medias:</b> ${esc(L.name)}. Tus series marcadas siguen guardadas.</p></div>
+    <div class="btn-row" style="justify-content:flex-start"><button class="btn oro sm" data-act="w-resume">Continuar</button><button class="btn ghost sm" data-act="w-discard">Descartar</button></div>` : "";
+  return `<p class="muted small">Cada kilo cuenta: <b style="color:var(--tinta)">1 golpe al rudo por cada ${KG_PER_HIT} kg</b> que mueves (peso × repeticiones), hasta ${GYM_DMG_CAP} golpes por sesión.</p>
+  ${live}
+  <section class="cartel">
+    <div class="cartel-top"><span class="eyebrow">Te toca hoy</span><span class="eyebrow" style="color:var(--tinta-2)">Rotación ${ri + 1} de ${rs.length}</span></div>
+    <h3 class="poster" style="font-size:var(--t-xl);font-weight:400">${esc(r.name)}</h3>
+    <p class="muted">${esc(r.desc)}</p>
+    <div class="meta"><span class="chip num">${r.ex.length} ejercicios</span><span class="chip num">${sets} series</span><span class="chip num">~${Math.round(sets * 2.8)} min</span></div>
+    <div class="mini-stats"><div><span>La vez pasada</span><b class="num">${lastVol ? fmt(lastVol) + " kg" : "—"}</b></div><div><span>Golpes estimados</span><b class="num" style="color:var(--rojo)">${lastVol ? "≈ " + fmt(gymHits(lastVol)) : "—"}</b></div></div>
+    <button class="btn block" data-act="gym-start" data-id="${r.id}" ${L ? "disabled" : ""}>Sonar la campana</button>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:.6rem">
+    <span class="eyebrow">Otras rutinas</span>
+    ${rs.map((x, i) => i === ri ? "" : `<div class="row-card"><div><b>${esc(x.name)}</b><span>${esc(x.desc)} · ${x.ex.length} ejercicios${S.gym.lastVol[x.id] ? " · última: " + fmt(S.gym.lastVol[x.id]) + " kg" : ""}</span></div>
+      <div class="btn-row" style="flex-wrap:nowrap;gap:.4rem">${x.custom ? `<button class="btn ghost sm" data-act="r-del" data-id="${x.id}">Borrar</button>` : ""}<button class="btn ghost sm" data-act="gym-start" data-id="${x.id}" ${L ? "disabled" : ""}>Hacer</button></div></div>`).join("")}
+    ${editingRoutine ? routineEditorHTML() : `<button class="dashed-btn" data-act="r-new">+ Arma tu propia rutina</button>`}
+  </section>
+  ${recordsHTML()}
+  <p class="disclaimer">Calienta con series ligeras y usa un peso que puedas controlar. Si algo duele raro, para.</p>`;
+}
+
+function startGym(rid) {
+  const r = routines().find(x => x.id === rid);
+  if (!r || S.gym.live) return;
+  const sets = {};
+  r.ex.forEach(([id, n]) => {
+    const last = S.gym.last[id] || [];
+    const lo = parseInt(GYM_EX[id].reps, 10);
+    sets[id] = Array.from({ length: n }, (_, i) => {
+      const q = last[i] || last[last.length - 1];
+      return { kg: q ? q.kg : "", reps: q ? q.reps : lo, done: false };
+    });
+  });
+  S.gym.live = { rid, name: r.name, ex: r.ex.map(e => e[0]), start: Date.now(), idx: 0, sets, restEnd: 0, restDur: REST_S };
+  save();
+  openWorkout();
+}
+function openWorkout() {
+  if (W || !S.gym.live) return;
+  audio();
+  $("#timer").hidden = false;
+  document.body.style.overflow = "hidden";
+  lockScreen();
+  W = { iv: setInterval(wTick, 250), lastBeep: null };
+  renderWorkout();
+  $("#timer").scrollTop = 0;
+}
+function closeWorkout(toArena) {
+  if (W) clearInterval(W.iv);
+  W = null;
+  $("#timer").hidden = true;
+  $("#timer").innerHTML = "";
+  document.body.style.overflow = "";
+  unlockScreen();
+  if (toArena) TAB = "arena";
+  renderApp();
+  window.scrollTo(0, 0);
+}
+function gymVolume(L) {
+  let v = 0, n = 0;
+  for (const id of L.ex) for (const x of L.sets[id]) if (x.done) { v += (+x.kg || 0) * (+x.reps || 0); n++; }
+  return { v, n };
+}
+function wTick() {
+  const L = S && S.gym.live;
+  if (!L || !W) return;
+  const c = $("#w-clock");
+  if (c) c.textContent = mmss(Math.floor((Date.now() - L.start) / 1000));
+  if (L.restEnd) {
+    const left = Math.max(0, Math.ceil((L.restEnd - Date.now()) / 1000));
+    const el = $("#w-rest-left"); if (el) el.textContent = mmss(left);
+    const bar = $("#w-rest-bar"); if (bar) bar.style.width = Math.min(100, left / L.restDur * 100) + "%";
+    if (left <= 3 && left > 0 && W.lastBeep !== left) { W.lastBeep = left; beep(880, .1); }
+    if (left === 0) { L.restEnd = 0; bell(); buzz([150, 80, 150]); renderWorkout(); }
+  }
+}
+function hintHTML(L) {
+  const id = L.ex[L.idx], r = S.gym.prs[id];
+  const cur = L.sets[id].find(x => !x.done);
+  if (!cur || !r) return "";
+  const kg = parseFloat(cur.kg);
+  let msg = "";
+  if (kg > r.kg) msg = `Cualquier serie con ${fmtKg(kg)} kg es récord nuevo.`;
+  else if (kg === r.kg) msg = `Si sacas ${r.reps + 1} repeticiones con ${fmtKg(kg)} kg, rompes tu marca.`;
+  if (!msg) return "";
+  return `<div class="pr-hint"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0a0718" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div><p style="margin:0"><b style="color:var(--oro)">Récord a la vista.</b> ${msg}</p></div>`;
+}
+function renderWorkout() {
+  const L = S && S.gym.live;
+  if (!L) return;
+  const box = $("#timer"), scroll = box.scrollTop;
+  const id = L.ex[L.idx], e = GYM_EX[id], sets = L.sets[id], r = S.gym.prs[id], last = S.gym.last[id] || [];
+  const curI = sets.findIndex(x => !x.done);
+  const { v } = gymVolume(L);
+  const left = Math.max(0, Math.ceil((L.restEnd - Date.now()) / 1000));
+  const next = L.ex[L.idx + 1];
+  box.innerHTML = `<div class="w-inner">
+    <div class="w-top">
+      <button class="link-btn" data-act="w-exit" style="text-decoration:none;font-family:var(--f-label);font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding-left:0">← Salir</button>
+      <div class="ttl">${esc(L.name)}</div>
+      <div class="num" id="w-clock" style="font-family:var(--f-display);color:var(--oro)">${mmss(Math.floor((Date.now() - L.start) / 1000))}</div>
+    </div>
+    <div class="w-prog" style="grid-template-columns:repeat(${L.ex.length},1fr)" aria-label="Ejercicio ${L.idx + 1} de ${L.ex.length}">${L.ex.map((x, i) => `<i class="${i === L.idx ? "cur" : L.sets[x].every(q => q.done) ? "done" : ""}"></i>`).join("")}</div>
+    <div>
+      <span class="eyebrow">Ejercicio ${L.idx + 1} de ${L.ex.length} · ${e.alias}</span>
+      <h2 class="poster" style="font-size:var(--t-xl);margin-top:.35rem">${e.name}</h2>
+      <p class="muted small" style="margin-top:.5rem">${r ? `Tu récord: <b style="color:var(--tinta)">${fmtKg(r.kg)} kg × ${r.reps}</b>` : "Primera vez: lo que hagas hoy será tu marca"} · Objetivo: ${sets.length} series de ${e.reps}</p>
+    </div>
+    <div class="panel sets">
+      <div class="set-row head"><span style="text-align:center">#</span><span>Anterior</span><span style="text-align:center">Kg</span><span style="text-align:center">Reps</span><span></span></div>
+      ${sets.map((x, i) => {
+        const q = last[i];
+        return `<div class="set-row ${x.done ? "done" : ""} ${i === curI ? "cur" : ""}">
+          <span class="n">${i + 1}</span>
+          <span class="prev num">${q ? `${fmtKg(q.kg)} × ${q.reps}` : "—"}</span>
+          <input id="w-${id}-${i}-kg" type="number" inputmode="decimal" min="0" step="0.5" aria-label="Kilos de la serie ${i + 1}" value="${esc(x.kg)}" data-ex="${id}" data-i="${i}" data-f="kg">
+          <input id="w-${id}-${i}-reps" type="number" inputmode="numeric" min="0" step="1" aria-label="Repeticiones de la serie ${i + 1}" value="${esc(x.reps)}" data-ex="${id}" data-i="${i}" data-f="reps">
+          <button class="check" data-act="w-set" data-i="${i}" aria-pressed="${x.done}" aria-label="${x.done ? "Desmarcar" : "Marcar"} serie ${i + 1}"><svg viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+        </div>`;
+      }).join("")}
+      <button class="dashed-btn" data-act="w-add" style="padding:.5rem;font-size:var(--t-sm)">+ Agregar serie</button>
+    </div>
+    <div id="w-hint">${hintHTML(L)}</div>
+    ${L.restEnd ? `<div class="rest">
+      <div class="sec-head"><span class="eyebrow" style="color:var(--turquesa)">Descanso en la esquina</span><span class="num" id="w-rest-left" style="font-family:var(--f-display);font-size:var(--t-lg)">${mmss(left)}</span></div>
+      <div class="bar"><i id="w-rest-bar" style="width:${Math.min(100, left / L.restDur * 100)}%"></i></div>
+      <div class="seg"><button data-act="w-rest" data-d="-15">−15 s</button><button data-act="w-rest" data-d="15">+15 s</button><button class="on" data-act="w-rest" data-d="0">Saltar</button></div>
+    </div>` : ""}
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div class="sec-head small muted"><span>Volumen: <b id="w-vol" class="num" style="color:var(--tinta)">${fmt(v)} kg</b></span><span>≈ <b id="w-hits" class="num" style="color:var(--rojo)">${fmt(gymHits(v))}</b> golpes</span></div>
+      ${next ? `<button class="btn ghost block" data-act="w-next" style="justify-content:space-between;font-size:var(--t-md);text-align:left"><span>Sigue: ${GYM_EX[next].name}</span><span aria-hidden="true">→</span></button>` : `<button class="btn oro block" data-act="w-finish">Terminar sesión</button>`}
+      <div class="btn-row" style="justify-content:space-between">${L.idx > 0 ? `<button class="link-btn" data-act="w-prev">← Anterior</button>` : "<span></span>"}${next ? `<button class="link-btn" data-act="w-finish">Terminar ya</button>` : ""}</div>
+    </div>
+  </div>`;
+  box.scrollTop = scroll;
+}
+function updateWorkoutLive() {
+  const L = S.gym.live;
+  if (!L) return;
+  const { v } = gymVolume(L);
+  const a = $("#w-vol"); if (a) a.textContent = fmt(v) + " kg";
+  const b = $("#w-hits"); if (b) b.textContent = fmt(gymHits(v));
+  const h = $("#w-hint"); if (h) h.innerHTML = hintHTML(L);
+}
+function finishGym() {
+  const L = S.gym.live;
+  if (!L) return;
+  const { v, n } = gymVolume(L);
+  if (!n) {
+    S.gym.live = null; save();
+    toast("Sesión sin series marcadas: no cuenta.", "bad");
+    closeWorkout(false);
+    return;
+  }
+  const t = today(), prs = [];
+  for (const id of L.ex) {
+    const done = L.sets[id].filter(x => x.done).map(x => ({ kg: +x.kg || 0, reps: +x.reps || 0 }));
+    if (!done.length) continue;
+    S.gym.last[id] = done;
+    const best = done.reduce((a, b) => b.kg > a.kg || (b.kg === a.kg && b.reps > a.reps) ? b : a);
+    const old = S.gym.prs[id];
+    if (!old) S.gym.prs[id] = { kg: best.kg, reps: best.reps, date: t };
+    else if (best.kg > old.kg || (best.kg === old.kg && best.reps > old.reps)) {
+      prs.push({ id, kg: best.kg, reps: best.reps, old });
+      S.gym.prs[id] = { kg: best.kg, reps: best.reps, date: t };
+    }
+    const h = S.gym.hist[id] || (S.gym.hist[id] = []);
+    h.push([t, best.kg]);
+    if (h.length > 12) h.splice(0, h.length - 12);
+  }
+  const ri = routines().findIndex(r => r.id === L.rid);
+  if (ri >= 0) S.gym.rot = ri + 1;
+  S.gym.lastVol[L.rid] = Math.round(v);
+  S.gym.prCount += prs.length;
+  S.gym.live = null;
+  const mins = Math.max(1, Math.round((Date.now() - L.start) / 60000));
+  day().rounds++;
+  S.totals.rounds++;
+  const dmg = gymHits(v), xp = GYM_XP + PR_XP * prs.length;
+  const boss = BOSSES[S.boss.idx];
+  applyGain(xp, dmg, "gimnasio");
+  const b = S.boss;
+  $("#timer").innerHTML = `<div class="w-inner">
+    <div style="text-align:center;display:flex;flex-direction:column;gap:.5rem;align-items:center">
+      <span class="eyebrow">Fin de la sesión · ${esc(L.name)}</span>
+      <h2 class="poster" style="font-size:var(--t-2xl)">${prs.length ? "¡Nuevo récord!" : "¡Sesión completa!"}</h2>
+    </div>
+    ${prs.map(q => `<div class="cartel" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.25rem .75rem;align-items:center"><b style="font-family:var(--f-label);font-weight:800;font-size:var(--t-lg);text-transform:uppercase">${GYM_EX[q.id].name}</b><span style="grid-row:span 2;font-family:var(--f-display);font-size:var(--t-lg);color:var(--oro);text-align:right">${fmtKg(q.kg)} kg<br>× ${q.reps}</span><span class="muted small">Antes: ${fmtKg(q.old.kg)} kg × ${q.old.reps}</span></div>`).join("")}
+    <div class="stats"><div class="stat"><b class="num">${mins}</b><span>Minutos</span></div><div class="stat"><b class="num">${fmt(v)}</b><span>Kg movidos</span></div><div class="stat"><b class="num">${n}</b><span>Series</span></div></div>
+    <div class="panel" style="display:flex;flex-direction:column;gap:.5rem">
+      <div class="sec-head"><span style="font-family:var(--f-display);color:var(--rojo)">${esc(boss.name)}</span><span class="num" style="font-family:var(--f-display);color:var(--oro)">−${dmg}</span></div>
+      <div class="hp-bar"><i style="width:${(b.hp / b.max * 100).toFixed(1)}%"></i></div>
+      <span class="muted small">${b.defeated ? "Sin máscara: esta semana ya es tuya." : `Le quedan ${fmt(b.hp)} de ${fmt(b.max)}.`}</span>
+    </div>
+    <p class="reward" style="text-align:center">+${xp} XP${prs.length ? ` · ${prs.length} ${prs.length === 1 ? "récord" : "récords"}` : ""}</p>
+    ${recordsHTML()}
+    <button class="btn oro block" data-act="w-close">Volver a la arena</button>
+  </div>`;
+  $("#timer").scrollTop = 0;
+  bell(); setTimeout(bell, 350);
+  buzz([200, 100, 200]);
+  if (prs.length) confetti();
+}
+
 /* ================= ruleta ================= */
 const R = { angle: 0, spinning: false, result: null };
 function wheelSegments() {
@@ -1428,6 +1781,214 @@ function spin() {
   })(t0);
 }
 
+/* ================= recordatorios ================= */
+const CAL = "Google Calendar";
+const RRULE_DAYS = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
+const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+const DAY_ABBR = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+const DAY_SHORT = ["L", "M", "M", "J", "V", "S", "D"];
+let MCP = null, remBusy = false, syncing = false, remEditing = false, remStatus = null, remCals = null, autoSynced = false, remTimer = 0;
+
+const nowHM = () => { const n = new Date(); return pad(n.getHours()) + ":" + pad(n.getMinutes()); };
+const at = (k, hm, plus = 0) => {
+  const [h, m] = hm.split(":").map(Number);
+  const d = parseKey(k);
+  d.setHours(h, m + plus, 0, 0);
+  return `${keyOf(d)}T${pad(d.getHours())}:${pad(d.getMinutes())}:00`;
+};
+const fmtHM = hm => { const [h, m] = hm.split(":").map(Number); return `${h % 12 || 12}:${pad(m)} ${h < 12 ? "a.m." : "p.m."}`; };
+const evId = q => (q && (q.id || q.eventId || (q.event && q.event.id))) || "?";
+const realId = id => !!id && id !== "?" && id !== "x";
+function nextDate(d, hm) {
+  const t = today();
+  let diff = (d - dow(t) + 7) % 7;
+  if (diff === 0 && nowHM() >= hm) diff = 7;
+  return addDays(t, diff);
+}
+function renderIfVestidor() { if (S && TAB === "vestidor" && !T && !W) renderApp(); }
+function setRemStatus(kind, text) { remStatus = text ? { kind, text } : null; renderIfVestidor(); }
+function remErr(e) {
+  const c = e && e.code;
+  const m = {
+    needs_reauth: "Tu conexión con Google Calendar venció. Reconéctala en claude.ai, en Configuración › Conectores.",
+    server_not_connected: "Conecta Google Calendar en claude.ai, en Configuración › Conectores, y vuelve a intentar.",
+    selection_required: "Tienes más de un Google Calendar conectado. Elige cuál usar en el aviso de claude.ai.",
+    not_in_manifest: "Lucha Fit no tiene permiso para usar tu calendario. Puedes darlo en el menú de permisos de la página.",
+    approval_required: "Falta tu permiso para usar Google Calendar. Toca el botón otra vez y acepta.",
+    blocked_by_policy: "Tu organización no permite usar Google Calendar aquí.",
+    server_unavailable: "Google Calendar no respondió. Revisa tu calendario antes de intentar otra vez, para no duplicar eventos.",
+    tool_error: "Google Calendar rechazó el cambio. Revisa tu calendario e intenta otra vez."
+  };
+  return m[c] || "No se pudo hablar con Google Calendar. Revisa tu calendario e intenta otra vez.";
+}
+async function cal(tool, input) {
+  if (!MCP) throw { code: "not_granted" };
+  if (S.rem.cal) input.calendarId = S.rem.cal;
+  const r = await MCP.callTool(CAL, tool, input);
+  return r ? r.payload : null;
+}
+async function delSafe(id) {
+  if (!realId(id)) return;
+  try { await cal("delete_event", { eventId: id, notificationLevel: "NONE" }); }
+  catch (e) { if (!e || e.code !== "tool_error") throw e; } // ya lo habían borrado
+}
+async function connectMcp(remoteDone) {
+  try { if (window.claude && window.claude.use) MCP = await window.claude.use("mcp"); } catch (e) { MCP = null; }
+  try { await remoteDone; } catch (e) { /* ignore */ }
+  renderIfVestidor();
+  autoSync();
+}
+async function autoSync() {
+  if (autoSynced || !MCP || !S || !S.rem.on) return;
+  autoSynced = true;
+  try { await remSync(); } catch (e) { setRemStatus("bad", remErr(e)); }
+}
+function rudoText(k) {
+  const b = S.boss;
+  const tail = "Con el Calentamiento de Vestidor (4 minutos) lo frenas.";
+  if (weekStart(k) === b.week && !b.defeated) return `Hoy no le has pegado a ${BOSSES[b.idx].name}. A medianoche recupera ${fmt(Math.round(b.max * HEAL))} de aguante. ${tail}`;
+  return `Hoy no has entrenado y el rudo de la semana se recupera a medianoche. ${tail}`;
+}
+async function remSync() {
+  const R = S && S.rem;
+  if (!R || !R.on || !MCP || syncing) return;
+  syncing = true;
+  try {
+    const t = today(), hm = nowHM();
+    for (const k of Object.keys(R.ev.rudo)) if (k < t) delete R.ev.rudo[k];
+    if (R.rudo) {
+      for (let i = 0; i < 7; i++) {
+        const k = addDays(t, i);
+        if (k in R.ev.rudo) continue;
+        if (i === 0 && (((S.days[k] || {}).xp || 0) > 0 || hm >= "20:00")) continue;
+        R.ev.rudo[k] = "?"; save(); // marca el intento para no duplicar si falla a medias
+        const q = await cal("create_event", { summary: "Lucha Fit · Última llamada", description: rudoText(k), startTime: at(k, "20:00"), endTime: at(k, "20:15"), overrideReminders: [{ method: "popup", minutes: 0 }] });
+        R.ev.rudo[k] = evId(q); save();
+      }
+    } else {
+      for (const k of Object.keys(R.ev.rudo)) { await delSafe(R.ev.rudo[k]); delete R.ev.rudo[k]; save(); }
+    }
+    const b = S.boss, sun = addDays(b.week, 6), dom = R.ev.dom;
+    const txt = `Te faltan ${fmt(b.hp)} golpes para quitarle la máscara a ${BOSSES[b.idx].name}. Hoy es el último día.`;
+    const wantDom = R.domingo && !b.defeated && (t < sun || (t === sun && hm < "10:00"));
+    if (wantDom) {
+      if (!dom || dom.week !== b.week) {
+        R.ev.dom = { week: b.week, id: "?", hp: b.hp }; save();
+        const q = await cal("create_event", { summary: "Lucha Fit · Domingo de función", description: txt, startTime: at(sun, "10:00"), endTime: at(sun, "10:15"), overrideReminders: [{ method: "popup", minutes: 0 }] });
+        R.ev.dom.id = evId(q); save();
+      } else if (realId(dom.id) && dom.hp !== b.hp) {
+        dom.hp = b.hp; save();
+        await cal("update_event", { eventId: dom.id, description: txt, notificationLevel: "NONE" });
+      }
+    } else if (dom && dom.week === b.week && realId(dom.id)) {
+      await delSafe(dom.id);
+      R.ev.dom = { week: b.week, id: "x", hp: b.hp }; save();
+    }
+  } finally { syncing = false; }
+}
+function remOnActivity() {
+  const R = S.rem;
+  if (!R.on || !MCP) return;
+  const t = today(), id = R.ev.rudo[t];
+  R.ev.rudo[t] = "x";
+  if (realId(id)) delSafe(id).catch(e => setRemStatus("bad", remErr(e)));
+  clearTimeout(remTimer);
+  remTimer = setTimeout(() => { remSync().catch(e => setRemStatus("bad", remErr(e))); }, 4000);
+}
+async function remSchedule() {
+  if (remBusy || syncing) return;
+  const R = S.rem;
+  if (R.entrenar && !R.days.some(Boolean)) { setRemStatus("bad", "Elige al menos un día para entrenar."); return; }
+  remBusy = true;
+  setRemStatus("", "Agendando en tu calendario…");
+  try {
+    for (const id of R.ev.train) await delSafe(id);
+    R.ev.train = []; save();
+    if (R.entrenar) {
+      for (let d = 0; d < 7; d++) {
+        if (!R.days[d]) continue;
+        const k = nextDate(d, R.times[d]);
+        const q = await cal("create_event", { summary: "Lucha Fit · Hora de entrenar", description: "Abre Lucha Fit y pégale al rudo de la semana. Hoy toca subir al ring.", startTime: at(k, R.times[d]), endTime: at(k, R.times[d], 45), recurrenceData: [`RRULE:FREQ=WEEKLY;BYDAY=${RRULE_DAYS[d]}`], overrideReminders: [{ method: "popup", minutes: 15 }] });
+        R.ev.train.push(evId(q)); save();
+      }
+    }
+    if (R.ev.dom && R.ev.dom.id === "x") R.ev.dom = null;
+    R.on = true; save();
+    await remSync();
+    remEditing = false;
+    remBusy = false;
+    setRemStatus("ok", "Listo. Revisa tu Google Calendar: los eventos empiezan con “Lucha Fit”.");
+  } catch (e) {
+    remBusy = false;
+    setRemStatus("bad", remErr(e));
+  }
+}
+async function remOff() {
+  if (remBusy) return;
+  remBusy = true;
+  setRemStatus("", "Quitando tus eventos de Lucha Fit…");
+  const R = S.rem;
+  try {
+    for (const id of R.ev.train) await delSafe(id);
+    for (const k of Object.keys(R.ev.rudo)) await delSafe(R.ev.rudo[k]);
+    if (R.ev.dom) await delSafe(R.ev.dom.id);
+    R.ev = { train: [], rudo: {}, dom: null };
+    R.on = false; remEditing = false; save();
+    remBusy = false;
+    setRemStatus("ok", "Listo, quité los eventos de Lucha Fit de tu calendario.");
+  } catch (e) {
+    remBusy = false;
+    setRemStatus("bad", remErr(e));
+  }
+}
+async function remLoadCals() {
+  try {
+    const r = await MCP.callTool(CAL, "list_calendars", {});
+    const list = (r && r.payload && r.payload.calendars) || [];
+    remCals = list.filter(c => c.id && !/#(holiday|contacts|weeknum)@|group\.v\.calendar\.google\.com$/.test(c.id) && (!c.accessRole || c.accessRole === "owner" || c.accessRole === "writer"));
+    renderIfVestidor();
+  } catch (e) { setRemStatus("bad", remErr(e)); }
+}
+function remHTML() {
+  const R = S.rem;
+  const head = `<div class="sec-head"><h2 class="sec-title">Recordatorios</h2>${R.on ? `<span class="chip" style="color:var(--turquesa)">Activos</span>` : ""}</div>`;
+  if (!MCP) return `<section>${head}<div class="panel" style="margin-top:.75rem"><p class="small muted">Los avisos llegan por tu Google Calendar, así te suenan en el celular aunque no tengas Lucha Fit abierta. Funcionan cuando abres Lucha Fit desde Claude.</p></div></section>`;
+  const st = remStatus ? `<p class="status ${remStatus.kind}" role="status">${esc(remStatus.text)}</p>` : "";
+  const calName = esc(R.calName || "Calendario principal");
+  if (R.on && !remEditing) {
+    const days = R.days.map((on, i) => on ? `${DAY_ABBR[i]} ${fmtHM(R.times[i])}` : "").filter(Boolean).join(" · ");
+    const av = [R.entrenar && "Hora de entrenar", R.rudo && "Alerta del rudo", R.domingo && "Domingo de función"].filter(Boolean).join(" · ");
+    return `<section>${head}<div class="panel" style="margin-top:.75rem;display:flex;flex-direction:column;gap:.6rem">
+      <p class="small">${R.entrenar ? days : "Sin hora fija de entrenamiento."}</p>
+      <p class="small muted">${av || "Sin avisos"} · ${calName}. Las alertas de los próximos 7 días se renuevan cada vez que abres Lucha Fit.</p>
+      ${st}
+      <div class="btn-row" style="justify-content:flex-start"><button class="btn ghost sm" data-act="rem-edit">Cambiar</button><button class="btn sm" style="background:var(--rojo)" data-act="rem-off" ${remBusy ? "disabled" : ""}>Quitar del calendario</button></div>
+    </div></section>`;
+  }
+  const sw = (k, name, desc) => `<div class="ritual"><div><b>${name}</b><span>${desc}</span></div><button class="switch" role="switch" aria-checked="${!!R[k]}" aria-label="${name}" data-act="rem-sw" data-k="${k}"></button></div>`;
+  const times = R.days.map((on, i) => on ? `<div class="time-row"><label for="rem-t-${i}">${DAY_NAMES[i]}</label><input type="time" id="rem-t-${i}" data-rt="${i}" value="${R.times[i]}"></div>` : "").join("");
+  const calRow = R.on
+    ? `<p class="small muted">Calendario: ${calName}</p>`
+    : remCals
+      ? `<div class="field"><label class="eyebrow" for="rem-cal">Calendario</label><select class="select" id="rem-cal"><option value="">Calendario principal</option>${remCals.map(c => `<option value="${esc(c.id)}" ${R.cal === c.id ? "selected" : ""}>${esc(c.summary || c.id)}</option>`).join("")}</select></div>`
+      : `<div class="sec-head"><span class="small muted">Calendario: ${calName}</span><button class="link-btn" data-act="rem-cals">Cambiar</button></div>`;
+  return `<section>${head}<div class="panel" style="margin-top:.75rem;display:flex;flex-direction:column;gap:.75rem">
+    <p class="small muted">El réferi te avisa por tu Google Calendar, así te suena en el celular aunque no tengas Lucha Fit abierta.</p>
+    <span class="eyebrow">¿Qué días subes al ring?</span>
+    <div class="days" role="group" aria-label="Días de entrenamiento">${R.days.map((on, i) => `<button class="${on ? "on" : ""}" data-act="rem-day" data-i="${i}" aria-pressed="${on}" aria-label="${DAY_NAMES[i]}">${DAY_SHORT[i]}</button>`).join("")}</div>
+    ${times ? `<div>${times}</div>` : ""}
+    <span class="eyebrow">Avisos del réferi</span>
+    <div>
+      ${sw("entrenar", "Hora de entrenar", "Te aviso 15 minutos antes, cada semana en los días que elegiste.")}
+      ${sw("rudo", "Alerta del rudo", "A las 8:00 p.m., si no has entrenado, te aviso que el rudo se cura a medianoche. Si ya entrenaste, el aviso se borra solo.")}
+      ${sw("domingo", "Domingo de función", "El domingo a las 10:00 a.m., cuántos golpes te faltan para ganar.")}
+    </div>
+    ${calRow}
+    ${st}
+    <div class="btn-row" style="justify-content:flex-start"><button class="btn" data-act="rem-save" ${remBusy ? "disabled" : ""}>${R.on ? "Actualizar calendario" : "Guardar y agendar"}</button>${R.on ? `<button class="link-btn" data-act="rem-cancel">Cancelar</button>` : ""}</div>
+  </div></section>`;
+}
+
 /* ================= vestidor ================= */
 let editingMask = false;
 function vestidorHTML() {
@@ -1447,6 +2008,8 @@ function vestidorHTML() {
         <button class="check" style="${done ? "background:var(--turquesa);border-color:var(--sombra)" : ""}" data-act="ritual" data-id="${r.id}" aria-pressed="${done}" aria-label="${r.name}"><svg viewBox="0 0 24 24" fill="none" stroke="${done ? "var(--sombra)" : "var(--cuerda)"}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button></div>`;
     }).join("")}</div>
   </section>
+
+  ${remHTML()}
 
   <section>
     <h2 class="sec-title">Tu récord</h2>
@@ -1584,6 +2147,8 @@ const ACTIONS = {
   },
   "diff": b => { S.profile.diff = +b.dataset.i; save(); renderApp(); },
   "reset": b => armConfirm(b, "¿Seguro? Toca otra vez", async () => {
+    if (S && S.rem.on && MCP) await remOff();
+    if (W) closeWorkout(false);
     S = null; OB = null; notices = []; R.result = null;
     try { localStorage.removeItem(LS_KEY); } catch (e) { /* ignore */ }
     clearTimeout(saveTimer);
@@ -1591,6 +2156,74 @@ const ACTIONS = {
     window.scrollTo(0, 0);
     startOnboarding();
   }),
+  "mode": b => { S.gym.mode = b.dataset.v; save(); renderApp(); },
+  "gym-start": b => startGym(b.dataset.id),
+  "w-resume": () => openWorkout(),
+  "w-discard": b => armConfirm(b, "¿Seguro?", () => { S.gym.live = null; save(); renderApp(); }),
+  "w-set": b => {
+    const L = S.gym.live; if (!L) return;
+    const x = L.sets[L.ex[L.idx]][+b.dataset.i];
+    if (x.done) { x.done = false; save(); renderWorkout(); return; }
+    const kg = parseFloat(x.kg), reps = parseInt(x.reps, 10);
+    if (!(reps > 0)) { toast("Anota las repeticiones", "bad"); return; }
+    if (!(kg >= 0)) { toast("Anota los kilos (0 si es con tu peso)", "bad"); return; }
+    x.kg = kg; x.reps = reps; x.done = true;
+    L.restEnd = Date.now() + L.restDur * 1000;
+    if (W) W.lastBeep = null;
+    audio(); beep(660, .08); setTimeout(() => beep(990, .12), 90);
+    if (L.sets[L.ex[L.idx]].every(q => q.done)) toast(L.idx < L.ex.length - 1 ? "Ejercicio completo" : "Última serie. ¡Termina la sesión!", "cool");
+    save(); renderWorkout();
+  },
+  "w-add": () => {
+    const L = S.gym.live; if (!L) return;
+    const arr = L.sets[L.ex[L.idx]], q = arr[arr.length - 1] || { kg: "", reps: "" };
+    arr.push({ kg: q.kg, reps: q.reps, done: false });
+    save(); renderWorkout();
+  },
+  "w-rest": b => {
+    const L = S.gym.live; if (!L) return;
+    const d = +b.dataset.d;
+    if (!d) L.restEnd = 0;
+    else {
+      L.restEnd += d * 1000;
+      L.restDur = Math.max(15, L.restDur + d);
+      if (L.restEnd <= Date.now()) L.restEnd = 0;
+    }
+    save(); renderWorkout();
+  },
+  "w-next": () => { const L = S.gym.live; if (!L) return; L.idx = Math.min(L.ex.length - 1, L.idx + 1); save(); renderWorkout(); $("#timer").scrollTop = 0; },
+  "w-prev": () => { const L = S.gym.live; if (!L) return; L.idx = Math.max(0, L.idx - 1); save(); renderWorkout(); $("#timer").scrollTop = 0; },
+  "w-exit": () => closeWorkout(false),
+  "w-finish": b => {
+    const L = S.gym.live; if (!L) return;
+    if (L.ex.some(id => L.sets[id].some(x => !x.done))) armConfirm(b, "Hay series sin marcar. ¿Terminar?", finishGym);
+    else finishGym();
+  },
+  "w-close": () => closeWorkout(true),
+  "r-new": () => { editingRoutine = true; renderApp(); },
+  "r-cancel": () => { editingRoutine = false; renderApp(); },
+  "r-save": () => {
+    const name = ($("#r-name").value || "").trim();
+    const ex = [...document.querySelectorAll(".check-list input:checked")].map(i => [i.value, 3]);
+    if (!name) { toast("Ponle nombre a tu rutina", "bad"); return; }
+    if (ex.length < 2) { toast("Elige al menos 2 ejercicios", "bad"); return; }
+    if (S.gym.custom.length >= 6) { toast("Máximo 6 rutinas propias", "bad"); return; }
+    S.gym.custom.push({ id: "c" + Date.now().toString(36), name, desc: "Rutina personalizada", ex, custom: true });
+    editingRoutine = false; save(); toast("Rutina guardada", "cool"); renderApp();
+  },
+  "r-del": b => armConfirm(b, "¿Borrar?", () => {
+    const cur = routines()[rotIdx()].id;
+    S.gym.custom = S.gym.custom.filter(r => r.id !== b.dataset.id);
+    S.gym.rot = Math.max(0, routines().findIndex(r => r.id === cur));
+    save(); renderApp();
+  }),
+  "rem-day": b => { const i = +b.dataset.i; S.rem.days[i] = !S.rem.days[i]; save(); renderApp(); },
+  "rem-sw": b => { const k = b.dataset.k; S.rem[k] = !S.rem[k]; save(); renderApp(); },
+  "rem-save": () => remSchedule(),
+  "rem-off": b => armConfirm(b, "¿Seguro? Toca otra vez", remOff),
+  "rem-edit": () => { remEditing = true; remStatus = null; renderApp(); },
+  "rem-cancel": () => { remEditing = false; renderApp(); },
+  "rem-cals": () => remLoadCals(),
   "modal-close": () => nextModal(),
   "notice-close": b => { notices.splice(+b.dataset.i, 1); renderApp(); }
 };
@@ -1605,9 +2238,27 @@ document.addEventListener("click", e => {
   if (fn) fn(b, e);
 });
 document.addEventListener("input", e => {
+  const ds = e.target.dataset || {};
+  if (ds.f && S && S.gym.live) {
+    const x = S.gym.live.sets[ds.ex] && S.gym.live.sets[ds.ex][+ds.i];
+    if (x) { x[ds.f] = e.target.value; updateWorkoutLive(); clearTimeout(saveTimer); saveTimer = setTimeout(() => save(), 800); }
+    return;
+  }
+  if (ds.rt !== undefined && S) {
+    S.rem.times[+ds.rt] = e.target.value || "07:00";
+    clearTimeout(saveTimer); saveTimer = setTimeout(() => save(), 600);
+    return;
+  }
   if (e.target.id === "v-name" && S) {
     const v = e.target.value.trim();
     if (v) { S.profile.name = v; clearTimeout(saveTimer); saveTimer = setTimeout(() => save(), 600); }
+  }
+});
+document.addEventListener("change", e => {
+  if (e.target.id === "rem-cal" && S) {
+    S.rem.cal = e.target.value;
+    S.rem.calName = e.target.value ? e.target.selectedOptions[0].textContent : "";
+    save();
   }
 });
 document.addEventListener("keydown", e => {
@@ -1615,7 +2266,7 @@ document.addEventListener("keydown", e => {
 });
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") {
-    if (T && !T.done) lockScreen();
+    if ((T && !T.done) || W) lockScreen();
     else if (S && !T) { ensureBoss(); renderApp(); }
   }
 });
@@ -1627,7 +2278,7 @@ if (["arena", "combate", "ruleta", "vestidor"].includes(h)) TAB = h;
 const local = loadLocal();
 S = local && local.profile ? migrate(local) : null;
 boot();
-connectRemote();
+connectMcp(connectRemote());
 })();
 </script>
 <!-- ARTIFACT:END -->
