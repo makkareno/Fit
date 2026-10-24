@@ -1,0 +1,1635 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#16112e">
+</head>
+<body>
+<!-- ARTIFACT:START -->
+<title>Lucha Fit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
+<style>
+/* Layout: one column stacked like a lucha libre fight poster, fixed tab bar at the bottom of the "ring" */
+:root {
+  --noche: #16112e;
+  --lona: #221b48;
+  --lona-2: #2e2662;
+  --cuerda: #463c8f;
+  --rosa: #ff3d8b;
+  --oro: #ffc93c;
+  --turquesa: #2fe3c5;
+  --rojo: #ff5a4f;
+  --tinta: #f7f2ff;
+  --tinta-2: #b9b0dc;
+  --sombra: #0a0718;
+  --f-display: "Bungee", "Arial Black", Impact, sans-serif;
+  --f-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-label: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem;
+  --t-xs: .78rem; --t-sm: .9rem; --t-md: 1rem; --t-lg: 1.25rem; --t-xl: 1.7rem; --t-2xl: 2.4rem;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  background-color: var(--noche);
+  background-image: radial-gradient(rgba(185, 176, 220, .07) 1px, transparent 1.5px);
+  background-size: 14px 14px;
+  color: var(--tinta);
+  font-family: var(--f-body);
+  font-size: var(--t-md);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--oro); outline-offset: 2px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+
+#app {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: var(--s-4) 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+#app.ob { padding-bottom: var(--s-6); }
+
+/* ---------- type ---------- */
+.poster {
+  font-family: var(--f-display);
+  line-height: .95;
+  letter-spacing: .01em;
+  text-shadow: 3px 3px 0 var(--rosa), 6px 6px 0 var(--sombra);
+}
+.eyebrow {
+  font-family: var(--f-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: var(--t-xs);
+  color: var(--oro);
+}
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); flex-wrap: wrap; }
+.sec-title { font-family: var(--f-display); font-size: var(--t-lg); font-weight: 400; }
+.muted { color: var(--tinta-2); }
+.small { font-size: var(--t-sm); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  font-family: var(--f-label); font-weight: 800; font-size: var(--t-lg);
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: .7rem 1.2rem;
+  background: var(--rosa); color: var(--tinta);
+  border: 2px solid var(--sombra); border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--sombra);
+  transition: transform .08s, box-shadow .08s;
+}
+.btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--sombra); }
+.btn.oro { background: var(--oro); color: var(--sombra); }
+.btn.turq { background: var(--turquesa); color: var(--sombra); }
+.btn.ghost { background: var(--lona-2); color: var(--tinta); }
+.btn.sm { font-size: var(--t-md); padding: .45rem .8rem; }
+.btn.block { width: 100%; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.link-btn { background: none; border: 0; color: var(--tinta-2); text-decoration: underline; padding: var(--s-2); font-size: var(--t-sm); }
+
+.panel {
+  background: var(--lona);
+  border: 2px solid var(--cuerda);
+  border-radius: 6px;
+  padding: var(--s-4);
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+
+/* ---------- header ---------- */
+.top { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; }
+.top .mini { width: 52px; height: 57px; }
+.top .who { min-width: 0; }
+.top .name { font-family: var(--f-display); font-size: var(--t-md); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top .rank { font-family: var(--f-label); font-weight: 700; font-size: var(--t-sm); color: var(--tinta-2); text-transform: uppercase; letter-spacing: .08em; }
+.xpbar { height: 10px; background: var(--sombra); border-radius: 3px; overflow: hidden; margin-top: 4px; border: 1px solid var(--cuerda); }
+.xpbar i { display: block; height: 100%; background: linear-gradient(90deg, var(--turquesa), var(--oro)); transition: width .5s; }
+.xptext { font-family: var(--f-label); font-size: var(--t-xs); color: var(--tinta-2); margin-top: 2px; }
+.badge-lvl {
+  display: grid; place-items: center; text-align: center;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--oro); color: var(--sombra);
+  border: 3px solid var(--sombra); box-shadow: 3px 3px 0 var(--sombra);
+  font-family: var(--f-label); font-weight: 800; line-height: 1;
+}
+.badge-lvl b { font-family: var(--f-display); font-size: 1.35rem; font-weight: 400; display: block; }
+.badge-lvl span { font-size: .62rem; letter-spacing: .1em; }
+
+.streak-strip { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--f-label); font-weight: 700; font-size: var(--t-sm);
+  text-transform: uppercase; letter-spacing: .06em;
+  background: var(--lona-2); border: 1px solid var(--cuerda); border-radius: 999px;
+  padding: .25rem .7rem;
+}
+.chip svg { width: 16px; height: 16px; }
+.chip.fire { color: var(--oro); }
+
+/* ---------- notices ---------- */
+.notice {
+  display: flex; gap: var(--s-3); align-items: flex-start;
+  background: var(--sombra); border: 2px dashed var(--rojo); border-radius: 6px;
+  padding: var(--s-3) var(--s-4);
+}
+.notice p { flex: 1; min-width: 0; font-size: var(--t-sm); }
+.notice b { color: var(--rojo); }
+.notice button { background: none; border: 0; color: var(--tinta-2); font-size: 1.2rem; line-height: 1; padding: 0 4px; }
+
+/* ---------- fight card ---------- */
+.cartel {
+  position: relative;
+  border: 3px solid var(--oro);
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 var(--sombra);
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 18px, rgba(255, 201, 60, .05) 18px 36px),
+    linear-gradient(180deg, var(--lona-2), var(--lona));
+  padding: var(--s-4);
+  display: flex; flex-direction: column; gap: var(--s-3);
+  overflow: hidden;
+}
+.cartel-top { display: flex; justify-content: space-between; gap: var(--s-2); flex-wrap: wrap; }
+.versus { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: var(--s-2); }
+.fighter { margin: 0; display: flex; flex-direction: column; align-items: center; gap: var(--s-2); position: relative; min-width: 0; }
+.fighter svg { width: 100%; max-width: 132px; height: auto; filter: drop-shadow(4px 5px 0 var(--sombra)); }
+.fighter figcaption {
+  font-family: var(--f-display); font-size: var(--t-sm); text-align: center; line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+.fighter.boss figcaption { color: var(--rojo); }
+.vs {
+  font-family: var(--f-display); font-size: var(--t-2xl); color: var(--oro);
+  text-shadow: 3px 3px 0 var(--rosa), 5px 5px 0 var(--sombra);
+  align-self: center; transform: rotate(-8deg);
+}
+.boss-bio { font-size: var(--t-sm); color: var(--tinta-2); text-align: center; }
+.hp-label { display: flex; justify-content: space-between; font-family: var(--f-label); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: var(--t-sm); }
+.hp-bar { height: 20px; background: var(--sombra); border: 2px solid var(--sombra); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+.hp-bar i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--rojo) 0 14px, #ff7a52 14px 16px); transition: width .7s cubic-bezier(.2, .8, .2, 1); }
+.hp-note { font-size: var(--t-xs); color: var(--tinta-2); text-align: center; }
+.stamp {
+  position: absolute; left: 50%; top: 42%;
+  transform: translate(-50%, -50%) rotate(-14deg);
+  font-family: var(--f-display); font-size: 1.35rem; color: var(--oro);
+  border: 4px solid var(--oro); padding: .2rem .6rem; border-radius: 4px;
+  background: rgba(10, 7, 24, .78); white-space: nowrap;
+  text-shadow: 2px 2px 0 var(--rosa);
+}
+.fighter.hit svg { animation: shake .5s; }
+.dmg-float {
+  position: absolute; top: 10%; left: 50%;
+  font-family: var(--f-display); font-size: var(--t-xl); color: var(--oro);
+  text-shadow: 2px 2px 0 var(--sombra);
+  animation: floatUp 1.2s forwards; pointer-events: none;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-8px) rotate(-6deg); }
+  40% { transform: translateX(7px) rotate(5deg); }
+  60% { transform: translateX(-5px) rotate(-3deg); }
+  80% { transform: translateX(3px) rotate(2deg); }
+}
+@keyframes floatUp { from { opacity: 1; transform: translate(-50%, 0) scale(1.1); } to { opacity: 0; transform: translate(-50%, -60px) scale(.9); } }
+
+/* ---------- retos ---------- */
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-3); }
+.reto {
+  display: grid; grid-template-columns: 4.2rem 1fr auto; gap: var(--s-3); align-items: center;
+  background: var(--lona); border: 2px solid var(--cuerda); border-radius: 6px;
+  padding: var(--s-3);
+}
+.reto.done { border-color: var(--turquesa); background: color-mix(in srgb, var(--turquesa) 10%, var(--lona)); }
+.reto-amt { text-align: center; font-family: var(--f-display); font-size: var(--t-xl); line-height: 1; color: var(--oro); }
+.reto-amt small { display: block; font-family: var(--f-label); font-size: var(--t-xs); font-weight: 700; color: var(--tinta-2); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+.reto-txt { min-width: 0; }
+.reto-txt b { display: block; font-family: var(--f-label); font-weight: 800; font-size: var(--t-lg); line-height: 1.1; text-transform: uppercase; letter-spacing: .02em; }
+.reto-txt span { display: block; font-size: var(--t-sm); color: var(--tinta-2); }
+.check {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid var(--cuerda); background: var(--sombra);
+  display: grid; place-items: center; transition: transform .1s;
+}
+.check svg { width: 24px; height: 24px; stroke: var(--cuerda); }
+.check:active { transform: scale(.9); }
+.reto.done .check { background: var(--turquesa); border-color: var(--sombra); }
+.reto.done .check svg { stroke: var(--sombra); }
+.combo { display: flex; align-items: center; gap: var(--s-3); font-size: var(--t-sm); color: var(--tinta-2); }
+.combo-dots { display: flex; gap: 4px; }
+.combo-dots i { width: 14px; height: 14px; border-radius: 3px; background: var(--sombra); border: 2px solid var(--cuerda); transform: rotate(45deg); }
+.combo-dots i.on { background: var(--oro); border-color: var(--oro); }
+
+.profe { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: center; }
+.profe .whistle { width: 44px; height: 44px; border-radius: 50%; background: var(--turquesa); display: grid; place-items: center; border: 2px solid var(--sombra); }
+.profe .whistle svg { width: 24px; height: 24px; }
+.profe q { font-size: var(--t-md); font-style: italic; quotes: "“" "”"; }
+
+/* ---------- heatmap ---------- */
+.heat { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.heat .dow { font-family: var(--f-label); font-weight: 700; font-size: var(--t-xs); text-align: center; color: var(--tinta-2); }
+.heat .c { aspect-ratio: 1; max-width: 100%; border-radius: 4px; background: var(--sombra); border: 1px solid var(--lona-2); }
+.heat .c.l1 { background: color-mix(in srgb, var(--rosa) 35%, var(--sombra)); }
+.heat .c.l2 { background: color-mix(in srgb, var(--rosa) 70%, var(--sombra)); }
+.heat .c.l3 { background: var(--oro); border-color: var(--oro); }
+.heat .c.today { outline: 2px solid var(--tinta); outline-offset: 1px; }
+.heat .c.future { opacity: .25; }
+.legend { display: flex; gap: var(--s-2); align-items: center; font-size: var(--t-xs); color: var(--tinta-2); justify-content: flex-end; margin-top: var(--s-2); }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* ---------- combates ---------- */
+.combate { display: flex; flex-direction: column; gap: var(--s-3); }
+.combate h3 { font-family: var(--f-display); font-size: var(--t-lg); font-weight: 400; }
+.meta { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.ex-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.ex-list span { font-size: var(--t-xs); font-family: var(--f-label); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; background: var(--sombra); padding: 2px 8px; border-radius: 3px; color: var(--tinta-2); }
+.reward { font-family: var(--f-label); font-weight: 800; color: var(--oro); letter-spacing: .04em; text-transform: uppercase; }
+
+/* ---------- ruleta ---------- */
+.wheel-wrap { position: relative; width: min(100%, 330px); margin: 0 auto; aspect-ratio: 1; max-width: 100%; }
+.wheel-wrap canvas { width: 100%; height: 100%; display: block; filter: drop-shadow(5px 6px 0 var(--sombra)); }
+.pointer {
+  position: absolute; left: 50%; top: -10px; transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 16px solid transparent; border-right: 16px solid transparent;
+  border-top: 30px solid var(--oro);
+  filter: drop-shadow(2px 3px 0 var(--sombra));
+}
+.hub {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--sombra); border: 4px solid var(--oro);
+  display: grid; place-items: center;
+  font-family: var(--f-display); font-size: .7rem; color: var(--oro); text-align: center; line-height: 1;
+}
+.result { text-align: center; display: flex; flex-direction: column; gap: var(--s-3); align-items: center; }
+.result .big { font-family: var(--f-display); font-size: var(--t-2xl); color: var(--oro); line-height: 1; }
+.btn-row { display: flex; gap: var(--s-3); flex-wrap: wrap; justify-content: center; }
+
+/* ---------- vestidor ---------- */
+.ritual {
+  display: grid; grid-template-columns: 1fr auto; gap: var(--s-3); align-items: center;
+  padding: var(--s-3) 0; border-bottom: 1px solid var(--lona-2);
+}
+.ritual:last-child { border-bottom: 0; }
+.ritual b { display: block; font-family: var(--f-label); font-weight: 800; font-size: var(--t-lg); text-transform: uppercase; line-height: 1.1; }
+.ritual span { font-size: var(--t-sm); color: var(--tinta-2); }
+.ritual.done b { color: var(--turquesa); }
+.ritual > div { min-width: 0; }
+.vasos { display: flex; align-items: center; gap: var(--s-2); }
+.vasos .count { font-family: var(--f-display); min-width: 3.2ch; text-align: center; }
+.round-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--lona-2); border: 2px solid var(--cuerda); font-weight: 700; font-size: 1.2rem; line-height: 1; }
+.glasses { display: flex; gap: 3px; margin-top: 4px; }
+.glasses i { width: 10px; height: 14px; border: 2px solid var(--cuerda); border-top: 0; border-radius: 0 0 3px 3px; }
+.glasses i.on { background: var(--turquesa); border-color: var(--turquesa); }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
+.stat { background: var(--sombra); border-radius: 6px; padding: var(--s-3); text-align: center; }
+.stat b { display: block; font-family: var(--f-display); font-size: var(--t-xl); font-weight: 400; line-height: 1; color: var(--oro); }
+.stat span { font-family: var(--f-label); font-weight: 700; font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--tinta-2); }
+
+.trophies { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-3); }
+.trophy { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; min-width: 0; }
+.trophy svg { width: 100%; max-width: 72px; height: auto; }
+.trophy span { font-family: var(--f-label); font-weight: 700; font-size: var(--t-xs); line-height: 1.1; overflow-wrap: anywhere; }
+.trophy.empty svg { opacity: .18; filter: grayscale(1); }
+.trophy.empty span { color: var(--tinta-2); }
+
+.badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--s-3); }
+.badge { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.badge .medal {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--oro); color: var(--sombra);
+  border: 3px solid var(--sombra); box-shadow: 0 0 0 2px var(--oro);
+  font-family: var(--f-display); font-size: .95rem;
+}
+.badge.locked .medal { background: var(--sombra); color: var(--cuerda); box-shadow: 0 0 0 2px var(--cuerda); }
+.badge b { font-family: var(--f-label); font-weight: 800; font-size: var(--t-sm); text-transform: uppercase; line-height: 1.05; }
+.badge span { font-size: var(--t-xs); color: var(--tinta-2); line-height: 1.2; }
+.badge.locked b { color: var(--tinta-2); }
+
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-2); }
+.seg button {
+  background: var(--sombra); border: 2px solid var(--cuerda); border-radius: 6px;
+  padding: var(--s-2); font-family: var(--f-label); font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+}
+.seg button.on { background: var(--oro); color: var(--sombra); border-color: var(--sombra); }
+
+/* ---------- mask editor ---------- */
+.mask-editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: var(--s-4); align-items: center; }
+.mask-preview svg { width: 100%; height: auto; filter: drop-shadow(5px 6px 0 var(--sombra)); }
+.mask-opts { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.sw { width: 30px; height: 30px; border-radius: 50%; background: var(--c); border: 3px solid var(--sombra); box-shadow: 0 0 0 2px var(--cuerda); padding: 0; }
+.sw.on { box-shadow: 0 0 0 3px var(--oro); transform: scale(1.08); }
+.emblems { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.em { width: 40px; height: 40px; border-radius: 6px; background: var(--sombra); border: 2px solid var(--cuerda); padding: 4px; display: grid; place-items: center; }
+.em svg { width: 100%; height: 100%; }
+.em.on { border-color: var(--oro); background: var(--lona-2); }
+@media (max-width: 420px) {
+  .mask-editor { grid-template-columns: 1fr; }
+  .mask-preview { width: 60%; margin: 0 auto; }
+}
+
+/* ---------- onboarding ---------- */
+.ob-hero { text-align: center; display: flex; flex-direction: column; gap: var(--s-4); align-items: center; padding-top: var(--s-5); }
+.ob-hero .title { font-size: clamp(3rem, 16vw, 5rem); }
+.ob-hero .title span { display: block; color: var(--oro); }
+.ob-hero .lede { font-size: var(--t-lg); max-width: 26ch; }
+.ob-hero .duo { display: flex; justify-content: center; align-items: end; gap: var(--s-2); width: 100%; max-width: 360px; }
+.ob-hero .duo svg { width: 42%; height: auto; filter: drop-shadow(5px 6px 0 var(--sombra)); }
+.ob-hero .duo .vs { font-size: var(--t-xl); }
+.how { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); text-align: left; width: 100%; }
+.how li { display: grid; grid-template-columns: 2rem 1fr; gap: var(--s-2); align-items: start; font-size: var(--t-sm); }
+.how li b { font-family: var(--f-display); color: var(--rosa); font-size: var(--t-lg); line-height: 1; }
+.steps { display: flex; gap: 6px; justify-content: center; }
+.steps i { width: 26px; height: 6px; border-radius: 3px; background: var(--lona-2); }
+.steps i.on { background: var(--oro); }
+.ob-step { display: flex; flex-direction: column; gap: var(--s-4); }
+.ob-step h2 { font-size: var(--t-xl); }
+.field { display: flex; flex-direction: column; gap: var(--s-2); }
+.field input {
+  width: 100%; font-family: var(--f-display); font-size: var(--t-lg);
+  padding: .7rem .8rem; background: var(--sombra); color: var(--tinta);
+  border: 2px solid var(--cuerda); border-radius: 6px;
+}
+.diff-cards { display: grid; gap: var(--s-3); }
+.diff-card {
+  text-align: left; background: var(--lona); border: 2px solid var(--cuerda); border-radius: 6px;
+  padding: var(--s-3) var(--s-4); display: grid; gap: 2px;
+}
+.diff-card b { font-family: var(--f-display); font-size: var(--t-lg); font-weight: 400; }
+.diff-card span { color: var(--tinta-2); font-size: var(--t-sm); }
+.diff-card.on { border-color: var(--oro); box-shadow: 4px 4px 0 var(--oro); }
+.oath { background: var(--sombra); border: 2px dashed var(--oro); border-radius: 6px; padding: var(--s-4); font-size: var(--t-lg); font-style: italic; }
+.hold {
+  position: relative; overflow: hidden; user-select: none; -webkit-user-select: none; touch-action: none;
+}
+.hold .fill { position: absolute; inset: 0; width: 0; background: var(--oro); z-index: 0; }
+.hold span { position: relative; z-index: 1; }
+.ob-nav { display: flex; gap: var(--s-3); justify-content: space-between; align-items: center; }
+
+/* ---------- tabs ---------- */
+#tabs {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  background: var(--sombra); border-top: 3px solid var(--rosa);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: max(8px, env(safe-area-inset-left, 0px));
+  padding-right: max(8px, env(safe-area-inset-right, 0px));
+}
+#tabs .inner { max-width: 34rem; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+#tabs button {
+  background: none; border: 0; padding: .55rem 0 .6rem;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  font-family: var(--f-label); font-weight: 700; font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .08em;
+  color: var(--tinta-2);
+}
+#tabs svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#tabs button.on { color: var(--oro); }
+
+/* ---------- toasts / modal ---------- */
+#toasts {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px)); z-index: 40;
+  display: flex; flex-direction: column; gap: var(--s-2); align-items: center;
+  width: min(92vw, 30rem); pointer-events: none;
+}
+.toast {
+  background: var(--oro); color: var(--sombra);
+  border: 2px solid var(--sombra); border-radius: 6px; box-shadow: 4px 4px 0 var(--sombra);
+  padding: .5rem .9rem; font-family: var(--f-label); font-weight: 800; font-size: var(--t-md);
+  text-transform: uppercase; letter-spacing: .04em; text-align: center;
+  animation: toastIn .25s ease-out;
+}
+.toast.bad { background: var(--rojo); color: var(--tinta); }
+.toast.cool { background: var(--turquesa); }
+@keyframes toastIn { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+#modal {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(10, 7, 24, .82);
+  display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.modal-card {
+  width: min(100%, 26rem);
+  background: var(--lona); border: 3px solid var(--oro); border-radius: 8px; box-shadow: 8px 8px 0 var(--sombra);
+  padding: var(--s-5); text-align: center; display: flex; flex-direction: column; gap: var(--s-4); align-items: center;
+  animation: pop .35s cubic-bezier(.2, 1.4, .4, 1);
+}
+.modal-card h2 { font-size: var(--t-xl); }
+.modal-card svg.m { width: 46%; height: auto; filter: drop-shadow(5px 6px 0 var(--sombra)); }
+@keyframes pop { from { transform: scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
+
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
+
+/* ---------- timer ---------- */
+#timer {
+  position: fixed; inset: 0; z-index: 45;
+  background: var(--noche);
+  background-image: radial-gradient(rgba(185, 176, 220, .07) 1px, transparent 1.5px);
+  background-size: 14px 14px;
+  overflow-y: auto;
+  padding-top: max(16px, env(safe-area-inset-top, 0px));
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.t-inner { max-width: 30rem; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; gap: var(--s-4); align-items: center; text-align: center; }
+.t-top { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: var(--s-2); }
+.phase {
+  font-family: var(--f-display); font-size: var(--t-md);
+  padding: .3rem .8rem; border-radius: 4px; border: 2px solid var(--sombra);
+  background: var(--ph); color: var(--sombra);
+}
+.ring { position: relative; width: min(72vw, 270px); aspect-ratio: 1; max-width: 100%; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .secs {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--f-display); font-size: clamp(3.5rem, 20vw, 5.5rem); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.t-ex { font-family: var(--f-display); font-size: var(--t-xl); line-height: 1.05; }
+.t-real { font-family: var(--f-label); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--tinta-2); }
+.t-tip { max-width: 32ch; color: var(--tinta-2); font-size: var(--t-sm); }
+.t-next { font-size: var(--t-sm); color: var(--tinta-2); }
+.t-next b { color: var(--tinta); }
+.t-controls { display: flex; gap: var(--s-3); flex-wrap: wrap; justify-content: center; margin-top: auto; padding-top: var(--s-3); }
+
+.disclaimer { font-size: var(--t-xs); color: var(--tinta-2); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div id="app"></div>
+<nav id="tabs" hidden aria-label="Secciones">
+  <div class="inner">
+    <button data-act="tab" data-tab="arena"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18M5 4v17M19 4v17"/></svg>Arena</button>
+    <button data-act="tab" data-tab="combate"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V8.5M10 2.5h4M18.5 6.5l1.5-1.5"/></svg>Combate</button>
+    <button data-act="tab" data-tab="ruleta"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>Ruleta</button>
+    <button data-act="tab" data-tab="vestidor"><svg viewBox="0 0 24 24"><path d="M12 2.5c5.2 0 7.5 4 7.5 8.5 0 5.5-3.4 10.5-7.5 10.5S4.5 16.5 4.5 11c0-4.5 2.3-8.5 7.5-8.5z"/><path d="M7.5 11c1.3-1.4 3.4-1.2 3.8.6M16.5 11c-1.3-1.4-3.4-1.2-3.8.6M10 16.5h4"/></svg>Vestidor</button>
+  </div>
+</nav>
+<div id="toasts" aria-live="polite"></div>
+<div id="modal" hidden role="dialog" aria-modal="true"></div>
+<div id="timer" hidden></div>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+(() => {
+"use strict";
+
+/* ================= data ================= */
+const EX = {
+  sentadilla: { short: "Sentadillas", name: "Sentadilla del Tope", real: "Sentadillas", unit: "reps", amt: [15, 25, 40], tip: "Pies al ancho de hombros, pecho arriba. Baja como si te sentaras en una silla." },
+  lagartija: { short: "Lagartijas", name: "Lagartijas de Lona", real: "Lagartijas", unit: "reps", amt: [8, 15, 30], tip: "Cuerpo recto como tabla. Si vas empezando, apoya rodillas: también cuenta." },
+  plancha: { short: "Plancha", name: "Plancha Atómica", real: "Plancha", unit: "seg", amt: [30, 45, 90], tip: "Antebrazos en el piso, abdomen apretado y cadera alineada." },
+  burpee: { short: "Burpees", name: "Burpee Huracarrana", real: "Burpees", unit: "reps", amt: [6, 12, 20], tip: "Agáchate, patea atrás, regresa y salta con las manos arriba." },
+  escalador: { short: "Escaladores", name: "Escalador de Cuerdas", real: "Escaladores", unit: "reps", amt: [20, 40, 60], tip: "En plancha alta, lleva las rodillas al pecho alternando rápido." },
+  zancada: { short: "Zancadas", name: "Zancada del Réferi", real: "Zancadas", unit: "reps", amt: [12, 20, 30], tip: "Paso largo al frente, ambas rodillas a 90°. Cuenta las dos piernas." },
+  estrella: { short: "Jumping jacks", name: "Saltos de Estrella", real: "Jumping jacks", unit: "reps", amt: [30, 50, 80], tip: "Abre piernas y brazos al saltar y ciérralos al caer." },
+  puente: { short: "Puente glúteo", name: "Puente Mexicano", real: "Puente de glúteo", unit: "reps", amt: [15, 25, 40], tip: "Boca arriba, sube la cadera y aprieta glúteos un segundo arriba." },
+  silla: { short: "Silla en pared", name: "La Silla Fantasma", real: "Sentadilla en pared", unit: "seg", amt: [30, 45, 75], tip: "Espalda en la pared, muslos paralelos al piso. Aguanta." },
+  bici: { short: "Bicicletas", name: "Bicicleta Voladora", real: "Abdominales bicicleta", unit: "reps", amt: [20, 30, 50], tip: "Codo a rodilla contraria, sin jalarte el cuello." },
+  rodillas: { short: "Rodillas arriba", name: "Rodillazos de Furia", real: "Rodillas arriba", unit: "seg", amt: [30, 45, 60], tip: "Trota en tu lugar subiendo las rodillas a la altura de la cadera." },
+  superman: { short: "Superman", name: "Vuelo Enmascarado", real: "Superman", unit: "reps", amt: [10, 15, 25], tip: "Boca abajo, levanta brazos y piernas a la vez. Pausa arriba." },
+  fondos: { short: "Fondos", name: "Fondos de Esquina", real: "Fondos en silla", unit: "reps", amt: [8, 12, 20], tip: "Manos en una silla firme detrás de ti, baja doblando los codos." },
+  caminata: { short: "Caminata", name: "Paseo del Campeón", real: "Caminata rápida", unit: "min", amt: [15, 20, 30], tip: "Paso rápido, celular en la bolsa, mirada al frente." }
+};
+const POOLS = [
+  ["sentadilla", "lagartija", "zancada", "fondos", "puente"],
+  ["plancha", "bici", "superman", "silla"],
+  ["burpee", "escalador", "estrella", "rodillas", "caminata"]
+];
+const UNIT = { reps: "reps", seg: "seg", min: "min" };
+
+const COMBATES = [
+  { id: "calentamiento", name: "Calentamiento de Vestidor", desc: "Para los días de flojera. Son 4 minutos, no hay pretexto que aguante.", ex: ["estrella", "sentadilla", "rodillas", "puente", "escalador", "plancha"], work: 30, rest: 10, rounds: 1, xp: 60, dmg: 90 },
+  { id: "rudo", name: "Round Rudo", desc: "Intervalos de cuerpo completo. Vas a sudar la máscara.", ex: ["burpee", "sentadilla", "escalador", "lagartija", "zancada", "bici"], work: 40, rest: 20, rounds: 2, xp: 140, dmg: 200 },
+  { id: "estelar", name: "Lucha Estelar", desc: "La función principal. Tres vueltas para quien viene a ganar.", ex: ["estrella", "lagartija", "sentadilla", "plancha", "burpee", "zancada", "superman", "escalador"], work: 45, rest: 15, rounds: 3, xp: 260, dmg: 340 }
+];
+
+const BOSSES = [
+  { name: "El Sillón Supremo", bio: "Campeón de peso completo del sofá. Su llave favorita: el abrazo de cojines.", base: "#6b4a2b", accent: "#e0b07a", emblem: "corona" },
+  { name: "Lord Flojera", bio: "Lleva desde 1998 susurrando “mañana empiezas”. Hoy no le vas a hacer caso.", base: "#4b4f63", accent: "#9fa6c4", emblem: "estrella" },
+  { name: "La Antojadora", bio: "Sus tacos de las 2 a.m. han tumbado a los más fuertes del barrio.", base: "#c2410c", accent: "#fde047", emblem: "flama" },
+  { name: "El Pretexto", bio: "Que si llueve, que si hace calor, que si es quincena. Tiene mil y todas malas.", base: "#334155", accent: "#f87171", emblem: "rayo" },
+  { name: "Doña Desvelada", bio: "“Un capítulo más”, dice. Y te deja sin energía para el día siguiente.", base: "#1e1b4b", accent: "#a78bfa", emblem: "corazon" },
+  { name: "El Refresco Negro", bio: "Burbujeante, dulce y traicionero. Pega con pura azúcar.", base: "#1c1210", accent: "#ef4444", emblem: "rayo" },
+  { name: "Mister Scroll", bio: "Hipnotiza con videos infinitos. Te roba tres horas y ni cuenta te das.", base: "#0f766e", accent: "#e2e8f0", emblem: "estrella" },
+  { name: "El Lunes Empiezo", bio: "El jefe final. Siempre promete y nunca llega. Derrótalo hoy, no el lunes.", base: "#111111", accent: "#ffc93c", emblem: "corona" }
+];
+const HP = [1500, 1900, 2400];
+const HEAL = 0.10;
+
+const RITUALES = [
+  { id: "agua", name: "Agua de campeón", desc: "8 vasos de agua", max: 8 },
+  { id: "sueno", name: "Descanso reglamentario", desc: "Dormiste 7 horas o más" },
+  { id: "verdura", name: "Verde en el plato", desc: "Verdura en 2 comidas" },
+  { id: "pasos", name: "Recorrido del barrio", desc: "6,000 pasos o más" },
+  { id: "refresco", name: "Cero refresco", desc: "Ni un trago de refresco hoy" }
+];
+
+const RANKS = [[1, "Novato de Barrio"], [3, "Luchador de Lona"], [5, "Rudo de Arena Local"], [8, "Técnico Estelar"], [11, "Campeón Regional"], [15, "Campeón Nacional"], [20, "Leyenda Enmascarada"]];
+const DIFF_INFO = [
+  { name: "Novato", desc: "Hace mucho que no hago ejercicio. Vamos con calma, pero vamos." },
+  { name: "Intermedio", desc: "Me muevo de vez en cuando. Lo que me falta es constancia." },
+  { name: "Bestia", desc: "Ya entreno. Quiero que me exijan de verdad." }
+];
+
+const PROFE = [
+  "Nadie se arrepiente de haber entrenado. De quedarse en el sillón, siempre.",
+  "No tienes que ser el mejor del barrio. Solo mejor que el tú de ayer.",
+  "Diez minutos hoy le ganan a una hora “el lunes”.",
+  "La flojera no se va sola. Se le gana a golpe de sentadilla.",
+  "Si te cansas, descansa. Pero no te rajes.",
+  "El rudo de la semana ya está calentando. ¿Y tú?",
+  "Los campeones no nacen. Se hacen un día a la vez, aunque sea con 15 lagartijas.",
+  "Hoy no necesitas ganas. Necesitas empezar.",
+  "Tu máscara no se pierde en un día, se pierde con muchos “mañana”.",
+  "¿Cansado? Perfecto, ahí empieza lo bueno.",
+  "Toma agua, campeón. El refresco no hidrata ni el alma.",
+  "La afición no vino a verte en el sillón. Súbete al ring."
+];
+
+const BADGES = [
+  { id: "primer", icon: "1", name: "Primer golpe", desc: "Tu primera actividad", test: s => s.xp > 0 },
+  { id: "combo", icon: "x3", name: "Combo perfecto", desc: "Los 3 retos en un día", test: s => s.totals.combos > 0 },
+  { id: "racha3", icon: "3", name: "Tres caídas", desc: "Racha de 3 días", test: s => s.bestStreak >= 3 },
+  { id: "racha7", icon: "7", name: "Semana de acero", desc: "Racha de 7 días", test: s => s.bestStreak >= 7 },
+  { id: "racha21", icon: "21", name: "Hábito de campeón", desc: "Racha de 21 días", test: s => s.bestStreak >= 21 },
+  { id: "mascara1", icon: "M", name: "Primera máscara", desc: "Vence a un rudo", test: s => s.masks.length >= 1 },
+  { id: "mascara4", icon: "4M", name: "Coleccionista", desc: "Gana 4 máscaras", test: s => s.masks.length >= 4 },
+  { id: "round10", icon: "10", name: "Diez rounds", desc: "Completa 10 combates", test: s => s.totals.rounds >= 10 },
+  { id: "agua", icon: "H2O", name: "Hidratado", desc: "8 vasos en un día", test: s => !!s.flags.agua },
+  { id: "rituales", icon: "5R", name: "Ritual completo", desc: "Los 5 rituales en un día", test: s => !!s.flags.rituales },
+  { id: "madrugador", icon: "AM", name: "Madrugador", desc: "Entrena antes de las 8 a.m.", test: s => !!s.flags.madrugador },
+  { id: "ruleta20", icon: "R", name: "Rey de la ruleta", desc: "Cumple 20 giros", test: s => s.totals.spins >= 20 },
+  { id: "nivel5", icon: "N5", name: "Nivel 5", desc: "Llega a nivel 5", test: s => levelInfo(s.xp).lvl >= 5 },
+  { id: "nivel10", icon: "N10", name: "Nivel 10", desc: "Llega a nivel 10", test: s => levelInfo(s.xp).lvl >= 10 }
+];
+
+const BASES = ["#e8243c", "#1f6fe5", "#13a37f", "#7a2fd0", "#141414", "#f2f2f2", "#ff8a00", "#d61f8c"];
+const ACCENTS = ["#ffc93c", "#f2f2f2", "#2fe3c5", "#ff3d8b", "#141414", "#c0c6d6", "#7cff6b", "#1f6fe5"];
+const EMBLEMS = { estrella: "Estrella", rayo: "Rayo", flama: "Flama", corona: "Corona", corazon: "Corazón" };
+const NAMES_A = ["El Huracán", "La Tormenta", "El Rayo", "El Jaguar", "La Pantera", "El Fénix", "La Cobra", "El Cometa", "La Centella", "El Titán", "La Furia", "El Halcón"];
+const NAMES_B = ["de Fuego", "de Acero", "del Barrio", "de Medianoche", "Imparable", "de Iztapalapa", "del Norte", "Estelar", "Dorado", "de la Colonia", "Supremo", "Relámpago"];
+
+/* ================= utils ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = n => Math.round(n).toLocaleString("es-MX");
+const pad = n => String(n).padStart(2, "0");
+const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = () => keyOf(new Date());
+const parseKey = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+const addDays = (k, n) => { const d = parseKey(k); d.setDate(d.getDate() + n); return keyOf(d); };
+const dow = k => (parseKey(k).getDay() + 6) % 7; // 0 = lunes
+const weekStart = k => addDays(k, -dow(k));
+const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function rng(seed) {
+  let h = 2166136261;
+  for (const c of seed) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return () => {
+    h += 0x6D2B79F5;
+    let t = h;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const pick = (arr, r) => arr[Math.floor(r() * arr.length)];
+const roundAmt = n => n >= 20 ? Math.round(n / 5) * 5 : Math.round(n);
+const randomName = () => `${pick(NAMES_A, Math.random)} ${pick(NAMES_B, Math.random)}`;
+
+function levelInfo(xp) {
+  let lvl = 1, need = 150, rest = xp;
+  while (rest >= need) { rest -= need; lvl++; need = 150 + (lvl - 1) * 75; }
+  return { lvl, into: rest, need };
+}
+const rankOf = lvl => RANKS.filter(r => lvl >= r[0]).pop()[1];
+
+/* ================= mask art ================= */
+const EMBLEM_PATHS = {
+  rayo: "M106 28 L86 58 L99 58 L93 80 L115 47 L102 47 L109 28 Z",
+  flama: "M100 26 C113 41 117 50 113 62 C111 71 105 77 100 77 C92 77 86 71 86 62 C86 54 92 50 94 43 C96 52 100 54 102 51 C104 45 102 37 100 26 Z",
+  corona: "M81 68 L83 42 L93 55 L100 36 L107 55 L117 42 L119 68 Z",
+  corazon: "M100 75 C84 63 80 55 80 48 C80 40 87 36 93 36 C97 36 99 39 100 41 C101 39 103 36 107 36 C113 36 120 40 120 48 C120 55 116 63 100 75 Z",
+  estrella: (() => {
+    const pts = [];
+    for (let i = 0; i < 10; i++) {
+      const r = i % 2 ? 9 : 21, a = -Math.PI / 2 + i * Math.PI / 5;
+      pts.push(`${(100 + r * Math.cos(a)).toFixed(1)} ${(55 + r * Math.sin(a)).toFixed(1)}`);
+    }
+    return "M" + pts.join(" L") + " Z";
+  })()
+};
+
+function maskSVG(m, o = {}) {
+  const angry = !!o.angry;
+  const ink = "#120d26";
+  const eyeT = angry ? ' transform="rotate(16 72 104)"' : "";
+  const white = angry ? "#ffe9a8" : "#ffffff";
+  const eye = `
+    <g${eyeT}>
+      <path d="M52 99 C40 90 31 78 27 66 C41 71 52 82 60 90 Z" fill="${m.accent}" stroke="${ink}" stroke-width="2.5"/>
+      <path d="M54 107 C42 115 35 125 33 136 C45 128 54 120 62 114 Z" fill="${m.accent}" stroke="${ink}" stroke-width="2.5"/>
+      <path d="M50 100 C56 83 85 81 95 104 C87 119 60 121 50 100 Z" fill="${ink}" stroke="${m.accent}" stroke-width="7" stroke-linejoin="round"/>
+      <ellipse cx="74" cy="102" rx="10" ry="7" fill="${white}"/>
+      <circle cx="${angry ? 79 : 77}" cy="102.5" r="4.4" fill="${ink}"/>
+    </g>`;
+  const mouth = angry
+    ? `<path d="M76 172 Q100 156 124 172 Q100 166 76 172 Z" fill="${ink}" stroke="${m.accent}" stroke-width="6" stroke-linejoin="round"/>`
+    : `<ellipse cx="100" cy="168" rx="21" ry="13" fill="${ink}" stroke="${m.accent}" stroke-width="6"/><path d="M88 166 Q100 176 112 166" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>`;
+  const title = o.title ? `<title>${esc(o.title)}</title>` : "";
+  return `<svg class="${o.cls || ""}" viewBox="0 0 200 222" role="img" aria-label="${esc(o.title || "Máscara")}">${title}
+    <path d="M100 8 C162 8 188 58 188 110 C188 168 152 214 100 214 C48 214 12 168 12 110 C12 58 38 8 100 8 Z" fill="${m.base}" stroke="${ink}" stroke-width="5"/>
+    <path d="M86 12 Q100 2 114 12 L106 30 L94 30 Z" fill="${m.accent}" stroke="${ink}" stroke-width="2.5"/>
+    <path d="${EMBLEM_PATHS[m.emblem] || EMBLEM_PATHS.estrella}" fill="${m.accent}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
+    ${eye}
+    <g transform="translate(200 0) scale(-1 1)">${eye}</g>
+    ${mouth}
+    <path d="M100 196 L100 212" stroke="${m.accent}" stroke-width="4"/>
+    <path d="M88 200 L112 204 M88 206 L112 200" stroke="${m.accent}" stroke-width="3"/>
+    <ellipse cx="62" cy="48" rx="20" ry="11" fill="#ffffff" opacity=".14" transform="rotate(-30 62 48)"/>
+  </svg>`;
+}
+const emblemIcon = (k, color) => `<svg viewBox="76 24 48 56"><path d="${EMBLEM_PATHS[k]}" fill="${color}" stroke="#120d26" stroke-width="3" stroke-linejoin="round"/></svg>`;
+
+/* ================= state & storage ================= */
+const LS_KEY = "luchafit.v1";
+let S = null;          // game state
+let OB = null;         // onboarding draft
+let TAB = "arena";
+let notices = [];
+let lastHit = null;
+let remote = null, writing = false, dirty = false, saveTimer = null;
+
+function loadLocal() {
+  try { const raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+}
+function save() {
+  if (!S) return;
+  S.updatedAt = Date.now();
+  try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) { /* sin almacenamiento local */ }
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(flush, 700);
+}
+async function flush() {
+  if (!remote || !S) return;
+  if (writing) { dirty = true; return; }
+  writing = true;
+  try {
+    await remote.set(JSON.parse(JSON.stringify(S)));
+  } catch (e) {
+    if (e && e.code === "unavailable") setTimeout(flush, 1500 + Math.random() * 1500);
+  }
+  writing = false;
+  if (dirty) { dirty = false; flush(); }
+}
+async function connectRemote() {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+    if (!db || !user) return;
+    const id = await user.id();
+    if (!id) return;
+    const ref = db.collection("data/users/" + id).doc("luchafit");
+    const snap = await ref.get();
+    remote = ref;
+    const data = snap.exists ? snap.data() : null;
+    if (data && data.profile && (!S || (data.updatedAt || 0) > (S.updatedAt || 0))) {
+      S = migrate(structuredClone(data));
+      notices = [];
+      try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) { /* ignore */ }
+      boot();
+    } else if (S) {
+      flush();
+    }
+  } catch (e) { /* sin nube: se queda en este dispositivo */ }
+}
+function migrate(s) {
+  s.days = s.days || {};
+  s.masks = s.masks || [];
+  s.totals = Object.assign({ retos: 0, rounds: 0, spins: 0, rituales: 0, combos: 0 }, s.totals || {});
+  s.flags = s.flags || {};
+  s.badges = s.badges || {};
+  s.bestStreak = s.bestStreak || 0;
+  s.losses = s.losses || 0;
+  return s;
+}
+function newState(p) {
+  return migrate({ v: 1, profile: p, xp: 0, days: {}, boss: null, masks: [], losses: 0, bestStreak: 0, updatedAt: Date.now() });
+}
+function day(k = today()) {
+  if (!S.days[k]) S.days[k] = { xp: 0, dmg: 0, retos: [0, 0, 0], rit: {}, agua: 0, rounds: 0, spins: 0 };
+  return S.days[k];
+}
+function retoSpec() {
+  const d = day();
+  if (!d.spec) {
+    const r = rng("retos" + today());
+    const lvl = levelInfo(S.xp).lvl;
+    const scale = 1 + Math.min(0.6, (lvl - 1) * 0.04);
+    d.spec = POOLS.map(pool => {
+      const ex = pick(pool, r);
+      return { ex, amt: roundAmt(EX[ex].amt[S.profile.diff] * scale) };
+    });
+  }
+  return d.spec;
+}
+function streak() {
+  let k = today();
+  if (!(S.days[k] && S.days[k].xp > 0)) k = addDays(k, -1);
+  let n = 0;
+  while (S.days[k] && S.days[k].xp > 0) { n++; k = addDays(k, -1); }
+  return n;
+}
+
+/* ================= boss ================= */
+function ensureBoss() {
+  const t = today();
+  const wk = weekStart(t);
+  const old = S.boss;
+  if (!old || old.week !== wk) {
+    if (old && !old.defeated) {
+      S.losses++;
+      notices.push(`<b>${esc(BOSSES[old.idx].name)}</b> se escapó con su máscara la semana pasada. Esta semana no se te va nadie.`);
+    }
+    const idx = old ? (old.idx + 1) % BOSSES.length : 0;
+    const max = HP[S.profile.diff] + S.masks.length * 150;
+    S.boss = { week: wk, idx, hp: max, max, defeated: false, healedThrough: addDays(wk, -1) };
+  }
+  const b = S.boss;
+  const y = addDays(t, -1);
+  let healed = 0;
+  for (let k = addDays(b.healedThrough, 1); k <= y; k = addDays(k, 1)) {
+    if (k < b.week || k < S.profile.start || b.defeated) continue;
+    if (!(S.days[k] && S.days[k].xp > 0)) {
+      const before = b.hp;
+      b.hp = Math.min(b.max, b.hp + Math.round(b.max * HEAL));
+      healed += b.hp - before;
+    }
+  }
+  if (y > b.healedThrough) b.healedThrough = y;
+  if (healed > 0) notices.push(`Mientras no entrenabas, <b>${esc(BOSSES[b.idx].name)}</b> se recuperó <b>+${fmt(healed)}</b> de aguante.`);
+  const cutoff = addDays(t, -70);
+  for (const k of Object.keys(S.days)) if (k < cutoff) delete S.days[k];
+}
+
+function hitBoss(dmg) {
+  const b = S.boss;
+  if (!b || b.defeated || dmg <= 0) return;
+  b.hp = Math.max(0, b.hp - dmg);
+  lastHit = { dmg, t: Date.now() };
+  if (b.hp === 0) {
+    b.defeated = true;
+    S.masks.push({ idx: b.idx, week: b.week });
+    S.xp += 300;
+    day().xp += 300;
+    const boss = BOSSES[b.idx];
+    queueModal({
+      eyebrow: "Lucha de apuestas",
+      title: `¡Le quitaste la máscara a ${boss.name}!`,
+      art: maskSVG(boss, { angry: true, cls: "m", title: boss.name }),
+      body: "Su máscara ya cuelga en tu vestidor. +300 XP. El lunes llega un rudo nuevo, más duro.",
+      cta: "¡Viva el campeón!",
+      confetti: true
+    });
+  }
+}
+
+/* ================= rewards ================= */
+function applyGain(xp, dmg, label) {
+  const d = day();
+  const before = levelInfo(S.xp).lvl;
+  S.xp += xp; d.xp += xp; d.dmg += dmg;
+  hitBoss(dmg);
+  if (new Date().getHours() < 8) S.flags.madrugador = true;
+  S.bestStreak = Math.max(S.bestStreak, streak());
+  toast(`+${xp} XP${dmg ? ` · ${dmg} golpes` : ""}${label ? ` · ${label}` : ""}`);
+  const after = levelInfo(S.xp).lvl;
+  if (after > before) {
+    const newRank = rankOf(after) !== rankOf(before);
+    queueModal({
+      eyebrow: "Subiste de nivel",
+      title: `¡Nivel ${after}!`,
+      art: maskSVG(S.profile.mask, { cls: "m", title: S.profile.name }),
+      body: newRank ? `Nuevo rango: <b>${rankOf(after)}</b>. La afición empieza a corear tu nombre.` : "Cada nivel sube un poquito tus retos diarios. Así se hacen los campeones.",
+      cta: "A seguirle",
+      confetti: newRank
+    });
+  }
+  checkBadges();
+  save();
+}
+function revokeGain(xp, dmg) {
+  const d = day();
+  S.xp = Math.max(0, S.xp - xp);
+  d.xp = Math.max(0, d.xp - xp);
+  d.dmg = Math.max(0, d.dmg - dmg);
+  if (S.boss && !S.boss.defeated) S.boss.hp = Math.min(S.boss.max, S.boss.hp + dmg);
+  toast(`−${xp} XP · deshecho`, "bad");
+  save();
+}
+function checkBadges() {
+  for (const b of BADGES) {
+    if (!S.badges[b.id] && b.test(S)) {
+      S.badges[b.id] = today();
+      setTimeout(() => toast(`Logro: ${b.name}`, "cool"), 500);
+    }
+  }
+}
+
+/* ================= ui primitives ================= */
+function toast(text, kind = "") {
+  const el = document.createElement("div");
+  el.className = "toast " + kind;
+  el.textContent = text;
+  $("#toasts").appendChild(el);
+  while ($("#toasts").children.length > 3) $("#toasts").firstElementChild.remove();
+  setTimeout(() => el.remove(), 2600);
+}
+const modalQueue = [];
+function queueModal(m) { modalQueue.push(m); if ($("#modal").hidden) nextModal(); }
+function nextModal() {
+  const m = modalQueue.shift();
+  const el = $("#modal");
+  if (!m) { el.hidden = true; el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="modal-card">
+    <span class="eyebrow">${esc(m.eyebrow || "")}</span>
+    ${m.art || ""}
+    <h2 class="poster">${esc(m.title)}</h2>
+    <p>${m.body || ""}</p>
+    <button class="btn oro" data-act="modal-close">${esc(m.cta || "Va")}</button>
+  </div>`;
+  el.hidden = false;
+  if (m.confetti) confetti();
+  setTimeout(() => { const b = el.querySelector("button"); if (b) b.focus(); }, 50);
+}
+function armConfirm(btn, label, fn) {
+  if (btn.dataset.armed) { fn(); return; }
+  const orig = btn.textContent;
+  btn.dataset.armed = "1";
+  btn.textContent = label;
+  setTimeout(() => { if (btn.isConnected) { delete btn.dataset.armed; btn.textContent = orig; } }, 3000);
+}
+function confetti() {
+  if (reduceMotion()) return;
+  const cv = $("#confetti");
+  cv.hidden = false;
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+  const ctx = cv.getContext("2d");
+  ctx.scale(dpr, dpr);
+  const css = getComputedStyle(document.documentElement);
+  const cols = ["--rosa", "--oro", "--turquesa", "--tinta"].map(v => css.getPropertyValue(v).trim());
+  const ps = Array.from({ length: 140 }, () => ({
+    x: innerWidth / 2 + (Math.random() - .5) * 80, y: innerHeight * .35,
+    vx: (Math.random() - .5) * 14, vy: -Math.random() * 14 - 4,
+    w: 6 + Math.random() * 6, h: 4 + Math.random() * 6, r: Math.random() * 6, vr: (Math.random() - .5) * .4,
+    c: cols[Math.floor(Math.random() * cols.length)]
+  }));
+  const t0 = performance.now();
+  (function frame(t) {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    for (const p of ps) {
+      p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+    }
+    if (t - t0 < 2600) requestAnimationFrame(frame); else { ctx.clearRect(0, 0, innerWidth, innerHeight); cv.hidden = true; }
+  })(t0);
+}
+
+/* ================= audio ================= */
+let actx = null;
+function audio() {
+  try { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); } catch (e) { actx = null; }
+  return actx;
+}
+function beep(f = 880, d = .12, vol = .12, type = "square") {
+  const a = actx; if (!a) return;
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = type; o.frequency.value = f;
+  g.gain.setValueAtTime(vol, a.currentTime);
+  g.gain.exponentialRampToValueAtTime(.0001, a.currentTime + d);
+  o.connect(g).connect(a.destination); o.start(); o.stop(a.currentTime + d + .02);
+}
+function bell() {
+  const a = actx; if (!a) return;
+  [[520, 1.4, .18], [1040, 1, .08], [1560, .7, .05], [2600, .4, .03]].forEach(([f, d, v]) => beep(f, d, v, "sine"));
+}
+function buzz(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (e) { /* ignore */ } }
+
+/* ================= onboarding ================= */
+function startOnboarding() {
+  OB = OB || { step: 0, name: randomName(), mask: { base: BASES[0], accent: ACCENTS[0], emblem: "estrella" }, diff: 0 };
+  renderOnboarding();
+}
+function maskEditorHTML(m, scope) {
+  return `<div class="mask-editor">
+    <div class="mask-preview">${maskSVG(m, { title: "Tu máscara" })}</div>
+    <div class="mask-opts">
+      <div><span class="eyebrow">Color base</span><div class="swatches">${BASES.map(c => `<button class="sw ${m.base === c ? "on" : ""}" style="--c:${c}" data-act="mask" data-scope="${scope}" data-k="base" data-v="${c}" aria-label="Color base ${c}"></button>`).join("")}</div></div>
+      <div><span class="eyebrow">Color de detalles</span><div class="swatches">${ACCENTS.map(c => `<button class="sw ${m.accent === c ? "on" : ""}" style="--c:${c}" data-act="mask" data-scope="${scope}" data-k="accent" data-v="${c}" aria-label="Color de detalles ${c}"></button>`).join("")}</div></div>
+      <div><span class="eyebrow">Emblema</span><div class="emblems">${Object.keys(EMBLEMS).map(k => `<button class="em ${m.emblem === k ? "on" : ""}" data-act="mask" data-scope="${scope}" data-k="emblem" data-v="${k}" aria-label="${EMBLEMS[k]}" title="${EMBLEMS[k]}">${emblemIcon(k, m.accent)}</button>`).join("")}</div></div>
+    </div>
+  </div>`;
+}
+function renderOnboarding() {
+  $("#tabs").hidden = true;
+  const app = $("#app");
+  app.className = "ob";
+  const st = OB.step;
+  const dots = `<div class="steps" aria-hidden="true">${[1, 2, 3, 4].map(i => `<i class="${st >= i ? "on" : ""}"></i>`).join("")}</div>`;
+  let html = "";
+  if (st === 0) {
+    html = `<section class="ob-hero">
+      <span class="eyebrow">Función estelar · Todos los días</span>
+      <h1 class="poster title">Lucha<span>Fit</span></h1>
+      <p class="lede">Tu vida fit, en formato lucha libre. Cada semana un rudo nuevo. Tú pones los golpes.</p>
+      <div class="duo">${maskSVG(OB.mask, { title: "Tú" })}<span class="vs">VS</span>${maskSVG(BOSSES[0], { angry: true, title: BOSSES[0].name })}</div>
+      <ol class="how panel">
+        <li><b>1</b><span>Crea tu personaje de luchador: nombre de batalla y máscara.</span></li>
+        <li><b>2</b><span>Cumple retos diarios, combates con cronómetro y la ruleta del réferi. Todo es golpe para el rudo.</span></li>
+        <li><b>3</b><span>Si faltas un día, el rudo se recupera. Si lo dejas en cero, te quedas con su máscara.</span></li>
+      </ol>
+      <button class="btn oro block" data-act="ob-next">Subir al ring</button>
+    </section>`;
+  } else if (st === 1) {
+    html = `<section class="ob-step">${dots}
+      <span class="eyebrow">Paso 1 de 4</span>
+      <h2 class="poster">¿Cómo te va a gritar la afición?</h2>
+      <div class="field">
+        <label class="eyebrow" for="ob-name">Nombre de batalla</label>
+        <input id="ob-name" maxlength="32" autocomplete="off" value="${esc(OB.name)}">
+      </div>
+      <button class="btn ghost sm" data-act="ob-roll">Sugerir otro nombre</button>
+      <div class="ob-nav"><button class="link-btn" data-act="ob-back">Atrás</button><button class="btn" data-act="ob-next">Siguiente</button></div>
+    </section>`;
+  } else if (st === 2) {
+    html = `<section class="ob-step">${dots}
+      <span class="eyebrow">Paso 2 de 4</span>
+      <h2 class="poster">Diseña tu máscara</h2>
+      <p class="muted">La máscara es sagrada. Va a ir subiendo de rango contigo.</p>
+      <div class="panel">${maskEditorHTML(OB.mask, "ob")}</div>
+      <div class="ob-nav"><button class="link-btn" data-act="ob-back">Atrás</button><button class="btn" data-act="ob-next">Siguiente</button></div>
+    </section>`;
+  } else if (st === 3) {
+    html = `<section class="ob-step">${dots}
+      <span class="eyebrow">Paso 3 de 4</span>
+      <h2 class="poster">¿En qué condición llegas?</h2>
+      <p class="muted">Sin pena: los retos se ajustan a ti y van subiendo conforme subes de nivel.</p>
+      <div class="diff-cards">${DIFF_INFO.map((d, i) => `<button class="diff-card ${OB.diff === i ? "on" : ""}" data-act="ob-diff" data-i="${i}"><b>${d.name}</b><span>${d.desc}</span></button>`).join("")}</div>
+      <div class="ob-nav"><button class="link-btn" data-act="ob-back">Atrás</button><button class="btn" data-act="ob-next">Siguiente</button></div>
+    </section>`;
+  } else {
+    html = `<section class="ob-step">${dots}
+      <span class="eyebrow">Paso 4 de 4</span>
+      <h2 class="poster">El juramento</h2>
+      <p class="oath">Yo, <b>${esc(OB.name)}</b>, juro ante la afición dejar de decir “el lunes empiezo”, subirme al ring aunque tenga flojera y no rajarme cuando el réferi grite.</p>
+      <button id="oath" class="btn oro block hold" aria-label="Mantén presionado para jurar"><i class="fill"></i><span>Mantén presionado para jurar</span></button>
+      <div class="ob-nav"><button class="link-btn" data-act="ob-back">Atrás</button><span></span></div>
+    </section>`;
+  }
+  app.innerHTML = html;
+  if (st === 1) {
+    const inp = $("#ob-name");
+    inp.addEventListener("input", () => { OB.name = inp.value; });
+  }
+  if (st === 4) wireOath();
+}
+function wireOath() {
+  const btn = $("#oath"), fill = btn.querySelector(".fill"), label = btn.querySelector("span");
+  let start = 0, raf = 0;
+  const DUR = 1600;
+  const step = t => {
+    const p = Math.min(1, (t - start) / DUR);
+    fill.style.width = (p * 100) + "%";
+    if (p >= 1) { finishOnboarding(); return; }
+    raf = requestAnimationFrame(step);
+  };
+  const down = e => { e.preventDefault(); if (start) return; audio(); start = performance.now(); label.textContent = "Jurando…"; raf = requestAnimationFrame(step); };
+  const up = () => { if (!start) return; cancelAnimationFrame(raf); start = 0; fill.style.width = "0"; label.textContent = "Mantén presionado para jurar"; };
+  btn.addEventListener("pointerdown", down);
+  btn.addEventListener("pointerup", up);
+  btn.addEventListener("pointerleave", up);
+  btn.addEventListener("pointercancel", up);
+  btn.addEventListener("keydown", e => { if ((e.key === " " || e.key === "Enter") && !e.repeat) down(e); });
+  btn.addEventListener("keyup", e => { if (e.key === " " || e.key === "Enter") up(); });
+}
+function finishOnboarding() {
+  const name = (OB.name || "").trim() || randomName();
+  S = newState({ name, mask: { ...OB.mask }, diff: OB.diff, start: today() });
+  OB = null;
+  ensureBoss();
+  save();
+  bell();
+  TAB = "arena";
+  renderApp();
+  queueModal({
+    eyebrow: "Primera función",
+    title: `${name} sube al ring`,
+    art: maskSVG(BOSSES[S.boss.idx], { angry: true, cls: "m", title: BOSSES[S.boss.idx].name }),
+    body: `Tu primer rival es <b>${esc(BOSSES[S.boss.idx].name)}</b>. Tiene ${fmt(S.boss.max)} de aguante y hasta el domingo para escaparse. Empieza con los retos de hoy.`,
+    cta: "¡A darle!",
+    confetti: true
+  });
+}
+
+/* ================= app shell ================= */
+function boot() {
+  if (!S) { startOnboarding(); return; }
+  ensureBoss();
+  renderApp();
+}
+function headerHTML() {
+  const li = levelInfo(S.xp);
+  const st = streak();
+  const doneToday = (S.days[today()] || {}).xp > 0;
+  return `<header class="top">
+    <div class="mini">${maskSVG(S.profile.mask, { title: S.profile.name })}</div>
+    <div class="who">
+      <div class="name">${esc(S.profile.name)}</div>
+      <div class="rank">${rankOf(li.lvl)}</div>
+      <div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="${li.need}" aria-valuenow="${li.into}"><i style="width:${(li.into / li.need * 100).toFixed(1)}%"></i></div>
+      <div class="xptext num">${fmt(li.into)} / ${fmt(li.need)} XP para nivel ${li.lvl + 1}</div>
+    </div>
+    <div class="badge-lvl"><div><b>${li.lvl}</b><span>NIVEL</span></div></div>
+  </header>
+  <div class="streak-strip">
+    <span class="chip fire"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.8 3.6 4.8 5.6 4.8 10.6a4.8 4.8 0 0 1-9.6 0c0-2.8 1.7-3.9 2-6.6 1 .9 1.8 2.1 1.9 3.7 1-2 1.3-4.6.9-7.7z"/></svg><span class="num">${st}</span> ${st === 1 ? "día" : "días"} de racha</span>
+    <span class="chip">${doneToday ? "Hoy ya sumaste" : "Hoy aún no entrenas"}</span>
+    <span class="chip"><span class="num">${S.masks.length}</span> ${S.masks.length === 1 ? "máscara" : "máscaras"}</span>
+  </div>`;
+}
+function renderApp() {
+  if (!S) return;
+  const app = $("#app");
+  app.className = "";
+  $("#tabs").hidden = false;
+  document.querySelectorAll("#tabs button").forEach(b => {
+    const on = b.dataset.tab === TAB;
+    b.classList.toggle("on", on);
+    if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  });
+  const view = { arena: arenaHTML, combate: combateHTML, ruleta: ruletaHTML, vestidor: vestidorHTML }[TAB] || arenaHTML;
+  app.innerHTML = headerHTML() + view();
+  if (TAB === "arena") animateHit();
+  if (TAB === "ruleta") drawWheel();
+}
+
+/* ================= arena ================= */
+function arenaHTML() {
+  const b = S.boss, boss = BOSSES[b.idx];
+  const left = 7 - dow(today());
+  const pct = (b.hp / b.max * 100).toFixed(1);
+  const spec = retoSpec();
+  const d = day();
+  const doneN = d.retos.filter(Boolean).length;
+  const notes = notices.map((n, i) => `<div class="notice"><p>${n}</p><button data-act="notice-close" data-i="${i}" aria-label="Cerrar aviso">×</button></div>`).join("");
+  const profe = pick(PROFE, rng("profe" + today()));
+  return `${notes}
+  <section class="cartel" aria-label="Pelea de la semana">
+    <div class="cartel-top">
+      <span class="eyebrow">Función de la semana</span>
+      <span class="eyebrow num">${b.defeated ? "Rudo vencido" : left === 1 ? "Último día" : `Quedan ${left} días`}</span>
+    </div>
+    <div class="versus">
+      <figure class="fighter me">${maskSVG(S.profile.mask, { title: S.profile.name })}<figcaption>${esc(S.profile.name)}</figcaption></figure>
+      <div class="vs">VS</div>
+      <figure class="fighter boss" id="bossFig">${maskSVG(boss, { angry: true, title: boss.name })}<figcaption>${esc(boss.name)}</figcaption>${b.defeated ? `<span class="stamp">Sin máscara</span>` : ""}</figure>
+    </div>
+    <p class="boss-bio">${esc(boss.bio)}</p>
+    <div>
+      <div class="hp-label"><span>Aguante del rudo</span><span class="num">${fmt(b.hp)} / ${fmt(b.max)}</span></div>
+      <div class="hp-bar" role="progressbar" aria-label="Aguante del rudo" aria-valuemin="0" aria-valuemax="${b.max}" aria-valuenow="${b.hp}"><i style="width:${pct}%"></i></div>
+    </div>
+    <p class="hp-note">${b.defeated ? "Ganaste esta semana. El lunes llega un rudo nuevo; tus golpes de hoy siguen sumando XP." : `Cada día que no entrenas, se recupera ${HEAL * 100}%. Ganas si lo dejas en cero antes del domingo.`}</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="sec-title">Retos de hoy</h2>
+      <div class="combo"><div class="combo-dots" aria-hidden="true">${[0, 1, 2].map(i => `<i class="${i < doneN ? "on" : ""}"></i>`).join("")}</div><span class="num">${doneN}/3</span></div>
+    </div>
+    <p class="muted small" style="margin:.25rem 0 .75rem">Cada reto: +50 XP y 70 golpes. Los tres en el día: combo de +50 XP y 60 golpes extra.</p>
+    <ul class="list">${spec.map((r, i) => {
+      const e = EX[r.ex], done = !!d.retos[i];
+      return `<li class="reto ${done ? "done" : ""}">
+        <div class="reto-amt num">${r.amt}<small>${UNIT[e.unit]}</small></div>
+        <div class="reto-txt"><b>${e.name}</b><span>${e.real}. ${e.tip}</span></div>
+        <button class="check" data-act="reto" data-i="${i}" aria-pressed="${done}" aria-label="${done ? "Deshacer" : "Marcar como hecho"}: ${e.real}"><svg viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+      </li>`;
+    }).join("")}</ul>
+  </section>
+
+  <section class="panel profe">
+    <div class="whistle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0718" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="14" r="5"/><path d="M13 11.5L21 8v4l-7 1.5M9 9V5"/></svg></div>
+    <div><span class="eyebrow">El Profe dice</span><q>${profe}</q></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="sec-title">Tu cartelera</h2><span class="muted small">Últimas 5 semanas · mejor racha: <span class="num">${S.bestStreak}</span></span></div>
+    <div class="panel" style="margin-top:.75rem">${heatHTML()}</div>
+  </section>`;
+}
+function heatHTML() {
+  const t = today();
+  const start = addDays(weekStart(t), -28);
+  let cells = ["L", "M", "M", "J", "V", "S", "D"].map(x => `<span class="dow">${x}</span>`).join("");
+  for (let i = 0; i < 35; i++) {
+    const k = addDays(start, i);
+    const xp = (S.days[k] || {}).xp || 0;
+    const lv = xp <= 0 ? "" : xp < 100 ? "l1" : xp < 250 ? "l2" : "l3";
+    const cls = ["c", lv, k === t ? "today" : "", k > t ? "future" : ""].join(" ");
+    cells += `<span class="${cls}" title="${k}: ${xp} XP"></span>`;
+  }
+  return `<div class="heat">${cells}</div>
+  <div class="legend"><span>Menos</span><i style="background:var(--sombra)"></i><i style="background:color-mix(in srgb,var(--rosa) 35%,var(--sombra))"></i><i style="background:color-mix(in srgb,var(--rosa) 70%,var(--sombra))"></i><i style="background:var(--oro)"></i><span>Más</span></div>`;
+}
+function animateHit() {
+  if (!lastHit || Date.now() - lastHit.t > 1500) return;
+  const fig = $("#bossFig");
+  if (!fig) return;
+  fig.classList.remove("hit"); void fig.offsetWidth; fig.classList.add("hit");
+  const f = document.createElement("span");
+  f.className = "dmg-float";
+  f.textContent = "−" + lastHit.dmg;
+  fig.appendChild(f);
+  setTimeout(() => f.remove(), 1300);
+  lastHit = null;
+}
+
+/* ================= combate (timer) ================= */
+function adjusted(c) {
+  const d = S.profile.diff;
+  return { work: c.work + [-10, 0, 5][d], rest: c.rest + [5, 0, -5][d] };
+}
+function buildSteps(c) {
+  const { work, rest } = adjusted(c);
+  const steps = [{ kind: "prep", dur: 10, ex: c.ex[0], r: 0, i: 0 }];
+  for (let r = 0; r < c.rounds; r++) {
+    c.ex.forEach((e, i) => {
+      steps.push({ kind: "work", dur: work, ex: e, r, i });
+      const last = i === c.ex.length - 1;
+      if (!last) steps.push({ kind: "rest", dur: rest, ex: c.ex[i + 1], r, i: i + 1 });
+      else if (r < c.rounds - 1) steps.push({ kind: "rest", dur: 45, ex: c.ex[0], r: r + 1, i: 0, between: true });
+    });
+  }
+  return steps;
+}
+function combateHTML() {
+  const d = day();
+  return `<section>
+    <h2 class="sec-title">Combates</h2>
+    <p class="muted small" style="margin-top:.25rem">Cronómetro guiado con campana y cuenta regresiva. Ajustado a tu nivel: ${DIFF_INFO[S.profile.diff].name}. Hoy llevas <b class="num">${d.rounds}</b> ${d.rounds === 1 ? "combate" : "combates"}.</p>
+  </section>
+  ${COMBATES.map(c => {
+    const mins = Math.round(buildSteps(c).reduce((a, s) => a + s.dur, 0) / 60);
+    const { work, rest } = adjusted(c);
+    return `<section class="panel combate">
+      <div class="sec-head"><h3>${c.name}</h3><span class="reward">+${c.xp} XP · ${c.dmg} golpes</span></div>
+      <p class="muted">${c.desc}</p>
+      <div class="meta"><span class="chip num">~${mins} min</span><span class="chip num">${c.rounds} ${c.rounds === 1 ? "vuelta" : "vueltas"}</span><span class="chip num">${work}s / ${rest}s</span></div>
+      <div class="ex-list">${c.ex.map(e => `<span>${EX[e].real}</span>`).join("")}</div>
+      <button class="btn block" data-act="combate" data-id="${c.id}">Sonar la campana</button>
+    </section>`;
+  }).join("")}
+  <p class="disclaimer">Calienta antes, hidrátate y escucha a tu cuerpo. Si tienes una lesión o condición médica, consulta a tu médico antes de empezar.</p>`;
+}
+
+let T = null;
+let wakeLock = null;
+async function lockScreen() { try { if (navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) { wakeLock = null; } }
+function unlockScreen() { try { wakeLock && wakeLock.release(); } catch (e) { /* ignore */ } wakeLock = null; }
+
+function startCombate(id) {
+  const c = COMBATES.find(x => x.id === id);
+  if (!c) return;
+  audio();
+  T = { c, steps: buildSteps(c), idx: 0, endAt: 0, left: 0, paused: false, lastSec: null, done: false, iv: 0 };
+  $("#timer").hidden = false;
+  document.body.style.overflow = "hidden";
+  lockScreen();
+  enterStep(0);
+  T.iv = setInterval(tick, 200);
+}
+function enterStep(i) {
+  T.idx = i;
+  const s = T.steps[i];
+  T.endAt = Date.now() + s.dur * 1000;
+  T.lastSec = null;
+  if (s.kind === "work") { bell(); buzz([120, 60, 120]); }
+  else if (s.kind === "rest") { beep(440, .25, .12, "triangle"); buzz(200); }
+  renderTimer();
+}
+function tick() {
+  if (!T || T.paused || T.done) return;
+  const ms = T.endAt - Date.now();
+  const sec = Math.max(0, Math.ceil(ms / 1000));
+  if (sec !== T.lastSec) {
+    T.lastSec = sec;
+    if (sec <= 3 && sec > 0) beep(880, .1);
+    updateTimerNumbers(sec);
+  }
+  if (ms <= 0) {
+    if (T.idx + 1 < T.steps.length) enterStep(T.idx + 1);
+    else finishCombate();
+  }
+}
+function updateTimerNumbers(sec) {
+  const s = T.steps[T.idx];
+  const el = $("#t-secs"); if (el) el.textContent = sec;
+  const ring = $("#t-ring");
+  if (ring) {
+    const C = 2 * Math.PI * 54;
+    const p = s.dur ? sec / s.dur : 0;
+    ring.style.strokeDashoffset = (C * (1 - p)).toFixed(2);
+  }
+}
+function renderTimer() {
+  const s = T.steps[T.idx], c = T.c, e = EX[s.ex];
+  const phase = s.kind === "work" ? { t: "¡A darle!", c: "var(--rosa)" } : s.kind === "rest" ? { t: s.between ? "Esquina" : "Descanso", c: "var(--turquesa)" } : { t: "Prepárate", c: "var(--oro)" };
+  const next = T.steps.slice(T.idx + 1).find(x => x.kind === "work");
+  const C = 2 * Math.PI * 54;
+  const workSteps = T.steps.filter(x => x.kind === "work").length;
+  const doneWork = T.steps.slice(0, T.idx + (s.kind === "work" ? 1 : 0)).filter(x => x.kind === "work").length;
+  $("#timer").innerHTML = `<div class="t-inner" style="--ph:${phase.c}">
+    <div class="t-top"><span class="phase">${phase.t}</span><span class="eyebrow num">Vuelta ${s.r + 1}/${c.rounds} · ${doneWork}/${workSteps}</span></div>
+    <span class="eyebrow">${esc(c.name)}</span>
+    <div class="ring">
+      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="var(--lona-2)" stroke-width="10"/><circle id="t-ring" cx="60" cy="60" r="54" fill="none" stroke="${phase.c}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="0" style="transition:stroke-dashoffset .25s linear"/></svg>
+      <div class="secs" id="t-secs">${s.dur}</div>
+    </div>
+    <div>${s.kind === "work" ? "" : `<span class="eyebrow">Sigue</span>`}
+      <div class="t-ex poster">${e.name}</div>
+      <div class="t-real">${e.real}</div>
+    </div>
+    <p class="t-tip">${e.tip}</p>
+    ${s.kind === "work" && next ? `<p class="t-next">Después: <b>${EX[next.ex].real}</b></p>` : ""}
+    <div class="t-controls">
+      <button class="btn ghost sm" data-act="t-pause">${T.paused ? "Seguir" : "Pausa"}</button>
+      <button class="btn ghost sm" data-act="t-skip">Saltar</button>
+      <button class="btn sm" data-act="t-quit" style="background:var(--rojo)">Rendirme</button>
+    </div>
+  </div>`;
+  updateTimerNumbers(Math.max(0, Math.ceil((T.endAt - Date.now()) / 1000)));
+}
+function finishCombate() {
+  clearInterval(T.iv);
+  T.done = true;
+  bell(); setTimeout(bell, 350); setTimeout(bell, 700);
+  buzz([200, 100, 200, 100, 400]);
+  const c = T.c;
+  day().rounds++;
+  S.totals.rounds++;
+  applyGain(c.xp, c.dmg, "combate");
+  $("#timer").innerHTML = `<div class="t-inner" style="justify-content:center">
+    <span class="eyebrow">Fin del combate</span>
+    <div style="width:min(55vw,200px)">${maskSVG(S.profile.mask, { title: S.profile.name })}</div>
+    <h2 class="poster" style="font-size:var(--t-2xl)">¡Ganaste el round!</h2>
+    <p class="reward" style="font-size:var(--t-lg)">+${c.xp} XP · ${c.dmg} golpes al rudo</p>
+    <p class="muted">${esc(pick(PROFE, Math.random))}</p>
+    <button class="btn oro" data-act="t-close">Volver a la arena</button>
+  </div>`;
+  confetti();
+  unlockScreen();
+}
+function closeTimer() {
+  if (T) clearInterval(T.iv);
+  T = null;
+  $("#timer").hidden = true;
+  $("#timer").innerHTML = "";
+  document.body.style.overflow = "";
+  unlockScreen();
+  TAB = "arena";
+  renderApp();
+  window.scrollTo(0, 0);
+}
+
+/* ================= ruleta ================= */
+const R = { angle: 0, spinning: false, result: null };
+function wheelSegments() {
+  const r = rng("ruleta" + today());
+  const all = Object.keys(EX).filter(k => k !== "caminata");
+  const segs = [];
+  while (segs.length < 8) {
+    const k = pick(all, r);
+    if (segs.some(s => s.ex === k)) continue;
+    segs.push({ ex: k, amt: roundAmt(EX[k].amt[S.profile.diff] * 0.6) });
+  }
+  return segs;
+}
+function ruletaHTML() {
+  const d = day();
+  const left = Math.max(0, 3 - d.spins);
+  const res = R.result;
+  let resHTML = "";
+  if (res && !R.spinning) {
+    const e = EX[res.ex];
+    resHTML = `<section class="panel result">
+      <span class="eyebrow">El réferi ordena</span>
+      <div class="big num">${res.amt} ${UNIT[e.unit]}</div>
+      <div class="sec-title">${e.name}</div>
+      <p class="muted small">${e.real}. ${e.tip}</p>
+      <div class="btn-row">
+        <button class="btn turq" data-act="spin-done">¡Lo hice!</button>
+        <button class="btn ghost" data-act="spin-raja">Me rajo</button>
+      </div>
+      <p class="muted small">${res.paid ? "Premio: +25 XP y 40 golpes." : "Giro de práctica: ya usaste tus 3 giros con premio hoy."} Rajarte le regala 30 de aguante al rudo.</p>
+    </section>`;
+  }
+  return `<section>
+    <h2 class="sec-title">La Ruleta del Réferi</h2>
+    <p class="muted small" style="margin-top:.25rem">Gira y haz lo que diga, sin negociar. Te quedan <b class="num">${left}</b> ${left === 1 ? "giro" : "giros"} con premio hoy.</p>
+  </section>
+  <div class="wheel-wrap"><canvas id="wheel" width="660" height="660" aria-label="Ruleta de ejercicios"></canvas><div class="pointer" aria-hidden="true"></div><div class="hub">LUCHA<br>FIT</div></div>
+  <button class="btn oro block" data-act="spin" ${R.spinning || (res && !R.spinning) ? "disabled" : ""}>${R.spinning ? "Girando…" : "Girar la ruleta"}</button>
+  ${resHTML}`;
+}
+function drawWheel() {
+  const cv = $("#wheel");
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, cx = W / 2, rad = W / 2 - 8;
+  const css = getComputedStyle(document.documentElement);
+  const v = n => css.getPropertyValue(n).trim();
+  const fills = [v("--rosa"), v("--lona-2"), v("--oro"), v("--cuerda"), v("--turquesa"), v("--lona-2"), v("--rojo"), v("--cuerda")];
+  const dark = [false, false, true, false, true, false, false, false];
+  const segs = wheelSegments();
+  const seg = Math.PI * 2 / segs.length;
+  const base = -Math.PI / 2 + R.angle * Math.PI / 180;
+  ctx.clearRect(0, 0, W, W);
+  ctx.beginPath(); ctx.arc(cx, cx, rad + 6, 0, Math.PI * 2); ctx.fillStyle = v("--sombra"); ctx.fill();
+  segs.forEach((s, i) => {
+    const a0 = base + i * seg;
+    ctx.beginPath(); ctx.moveTo(cx, cx); ctx.arc(cx, cx, rad, a0, a0 + seg); ctx.closePath();
+    ctx.fillStyle = fills[i]; ctx.fill();
+    ctx.lineWidth = 4; ctx.strokeStyle = v("--sombra"); ctx.stroke();
+    ctx.save();
+    ctx.translate(cx, cx); ctx.rotate(a0 + seg / 2);
+    ctx.fillStyle = dark[i] ? v("--sombra") : v("--tinta");
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.font = `400 30px ${v("--f-display")}`;
+    ctx.fillText(String(s.amt), rad * .72, -12);
+    ctx.font = `800 23px ${v("--f-label")}`;
+    ctx.fillText(EX[s.ex].short.toUpperCase(), rad * .6, 18);
+    ctx.restore();
+  });
+}
+function spin() {
+  if (R.spinning || !S) return;
+  audio();
+  const segs = wheelSegments();
+  const i = Math.floor(Math.random() * segs.length);
+  const segDeg = 360 / segs.length;
+  const a0 = R.angle;
+  const target = -(i + .5) * segDeg + (Math.random() - .5) * segDeg * .6;
+  let delta = ((target - a0) % 360 + 360) % 360;
+  delta += 360 * 5;
+  const paid = day().spins < 3;
+  R.spinning = true; R.result = null;
+  renderApp();
+  const dur = reduceMotion() ? 300 : 4200;
+  const t0 = performance.now();
+  let lastSeg = null;
+  const ease = t => 1 - Math.pow(1 - t, 4);
+  (function frame(t) {
+    const p = Math.min(1, (t - t0) / dur);
+    R.angle = a0 + delta * ease(p);
+    const cur = Math.floor(((R.angle % 360) + 360) % 360 / segDeg);
+    if (cur !== lastSeg) { lastSeg = cur; beep(1200, .03, .05); }
+    drawWheel();
+    if (p < 1) { requestAnimationFrame(frame); return; }
+    R.angle = ((R.angle % 360) + 360) % 360;
+    R.spinning = false;
+    R.result = { ...segs[i], paid };
+    bell();
+    if (TAB === "ruleta") renderApp();
+  })(t0);
+}
+
+/* ================= vestidor ================= */
+let editingMask = false;
+function vestidorHTML() {
+  const d = day();
+  const st = streak();
+  return `<section>
+    <div class="sec-head"><h2 class="sec-title">Rituales del vestidor</h2><span class="muted small">+15 XP · 20 golpes c/u</span></div>
+    <div class="panel" style="margin-top:.75rem">${RITUALES.map(r => {
+      if (r.id === "agua") {
+        const done = d.agua >= r.max;
+        return `<div class="ritual ${done ? "done" : ""}"><div><b>${r.name}</b><span>${r.desc}</span>
+          <div class="glasses" aria-hidden="true">${Array.from({ length: r.max }, (_, i) => `<i class="${i < d.agua ? "on" : ""}"></i>`).join("")}</div></div>
+          <div class="vasos"><button class="round-btn" data-act="agua" data-d="-1" aria-label="Quitar un vaso">−</button><span class="count num">${d.agua}/${r.max}</span><button class="round-btn" data-act="agua" data-d="1" aria-label="Sumar un vaso">+</button></div></div>`;
+      }
+      const done = !!d.rit[r.id];
+      return `<div class="ritual ${done ? "done" : ""}"><div><b>${r.name}</b><span>${r.desc}</span></div>
+        <button class="check" style="${done ? "background:var(--turquesa);border-color:var(--sombra)" : ""}" data-act="ritual" data-id="${r.id}" aria-pressed="${done}" aria-label="${r.name}"><svg viewBox="0 0 24 24" fill="none" stroke="${done ? "var(--sombra)" : "var(--cuerda)"}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button></div>`;
+    }).join("")}</div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Tu récord</h2>
+    <div class="stats" style="margin-top:.75rem">
+      <div class="stat"><b class="num">${st}</b><span>Racha</span></div>
+      <div class="stat"><b class="num">${S.bestStreak}</b><span>Mejor racha</span></div>
+      <div class="stat"><b class="num">${fmt(S.xp)}</b><span>XP total</span></div>
+      <div class="stat"><b class="num">${S.totals.retos}</b><span>Retos</span></div>
+      <div class="stat"><b class="num">${S.totals.rounds}</b><span>Combates</span></div>
+      <div class="stat"><b class="num">${S.masks.length}–${S.losses}</b><span>Ganadas–perdidas</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="sec-title">Máscaras ganadas</h2><span class="muted small num">${S.masks.length}/${BOSSES.length} rudos</span></div>
+    <div class="panel trophies" style="margin-top:.75rem">${BOSSES.map((b, i) => {
+      const won = S.masks.some(m => m.idx === i);
+      return `<div class="trophy ${won ? "" : "empty"}">${maskSVG(b, { angry: true, title: won ? b.name : "Por ganar" })}<span>${won ? esc(b.name) : "???"}</span></div>`;
+    }).join("")}</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="sec-title">Logros</h2><span class="muted small num">${Object.keys(S.badges).length}/${BADGES.length}</span></div>
+    <div class="panel badges" style="margin-top:.75rem">${BADGES.map(b => {
+      const got = !!S.badges[b.id];
+      return `<div class="badge ${got ? "" : "locked"}"><div class="medal">${b.icon}</div><b>${b.name}</b><span>${b.desc}</span></div>`;
+    }).join("")}</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="sec-title">Tu máscara</h2><button class="btn ghost sm" data-act="edit-mask">${editingMask ? "Listo" : "Editar"}</button></div>
+    ${editingMask ? `<div class="panel" style="margin-top:.75rem">
+      <div class="field" style="margin-bottom:1rem"><label class="eyebrow" for="v-name">Nombre de batalla</label><input id="v-name" maxlength="32" value="${esc(S.profile.name)}"></div>
+      ${maskEditorHTML(S.profile.mask, "me")}</div>` : ""}
+  </section>
+
+  <section>
+    <h2 class="sec-title">Dificultad</h2>
+    <p class="muted small" style="margin:.25rem 0 .75rem">Cambia desde mañana en los retos; en combates y ruleta, desde ya.</p>
+    <div class="seg">${DIFF_INFO.map((x, i) => `<button class="${S.profile.diff === i ? "on" : ""}" data-act="diff" data-i="${i}" aria-pressed="${S.profile.diff === i}">${x.name}</button>`).join("")}</div>
+  </section>
+
+  <section class="panel" style="display:flex;flex-direction:column;gap:.75rem">
+    <span class="eyebrow">Zona de peligro</span>
+    <p class="small muted">Borra tu luchador, tu progreso y tus máscaras. No se puede deshacer.</p>
+    <button class="btn sm" style="background:var(--rojo);align-self:flex-start" data-act="reset">Colgar la máscara</button>
+  </section>
+  <p class="disclaimer">${remote ? "Tu progreso se guarda en tu cuenta." : "Tu progreso se guarda en este dispositivo."}</p>`;
+}
+
+/* ================= actions ================= */
+const ACTIONS = {
+  "tab": b => {
+    TAB = b.dataset.tab;
+    try { history.replaceState(null, "", "#" + TAB); } catch (e) { /* ignore */ }
+    renderApp(); window.scrollTo(0, 0);
+  },
+  "ob-next": () => {
+    if (OB.step === 1) OB.name = ($("#ob-name").value || "").trim() || randomName();
+    OB.step = Math.min(4, OB.step + 1); renderOnboarding(); window.scrollTo(0, 0);
+  },
+  "ob-back": () => { OB.step = Math.max(0, OB.step - 1); renderOnboarding(); },
+  "ob-roll": () => { OB.name = randomName(); $("#ob-name").value = OB.name; },
+  "ob-diff": b => { OB.diff = +b.dataset.i; renderOnboarding(); },
+  "mask": b => {
+    const target = b.dataset.scope === "ob" ? OB.mask : S.profile.mask;
+    target[b.dataset.k] = b.dataset.v;
+    if (b.dataset.scope === "ob") renderOnboarding();
+    else { save(); renderApp(); }
+  },
+  "reto": b => {
+    const i = +b.dataset.i, d = day();
+    retoSpec();
+    if (d.retos[i]) {
+      d.retos[i] = 0; S.totals.retos = Math.max(0, S.totals.retos - 1);
+      let xp = 50, dmg = 70;
+      if (d.combo) { d.combo = false; S.totals.combos = Math.max(0, S.totals.combos - 1); xp += 50; dmg += 60; }
+      revokeGain(xp, dmg);
+    } else {
+      d.retos[i] = 1; S.totals.retos++;
+      let xp = 50, dmg = 70, label = "";
+      if (d.retos.every(Boolean) && !d.combo) { d.combo = true; S.totals.combos++; xp += 50; dmg += 60; label = "¡COMBO!"; buzz([80, 40, 80]); }
+      audio(); beep(660, .08); setTimeout(() => beep(990, .12), 90);
+      applyGain(xp, dmg, label);
+    }
+    renderApp();
+  },
+  "ritual": b => {
+    const id = b.dataset.id, d = day();
+    if (d.rit[id]) { d.rit[id] = false; S.totals.rituales = Math.max(0, S.totals.rituales - 1); revokeGain(15, 20); }
+    else { d.rit[id] = true; S.totals.rituales++; checkRitualFlags(d); applyGain(15, 20, "ritual"); }
+    renderApp();
+  },
+  "agua": b => {
+    const d = day();
+    const n = Math.max(0, Math.min(8, d.agua + (+b.dataset.d)));
+    if (n === d.agua) return;
+    const was = d.agua >= 8;
+    d.agua = n;
+    if (!was && n >= 8) { d.rit.agua = true; S.totals.rituales++; S.flags.agua = true; checkRitualFlags(d); applyGain(15, 20, "hidratado"); }
+    else if (was && n < 8) { d.rit.agua = false; S.totals.rituales = Math.max(0, S.totals.rituales - 1); revokeGain(15, 20); }
+    else save();
+    renderApp();
+  },
+  "combate": b => startCombate(b.dataset.id),
+  "t-pause": () => {
+    if (!T) return;
+    if (T.paused) { T.endAt = Date.now() + T.left; T.paused = false; }
+    else { T.left = T.endAt - Date.now(); T.paused = true; }
+    renderTimer();
+    if (T.paused) updateTimerNumbers(Math.ceil(T.left / 1000));
+  },
+  "t-skip": () => {
+    if (!T) return;
+    if (T.idx + 1 < T.steps.length) { T.paused = false; enterStep(T.idx + 1); } else finishCombate();
+  },
+  "t-quit": b => armConfirm(b, "¿Seguro? Toca otra vez", () => { toast("Te rendiste. El rudo se ríe.", "bad"); closeTimer(); }),
+  "t-close": () => closeTimer(),
+  "spin": () => spin(),
+  "spin-done": () => {
+    const res = R.result; if (!res) return;
+    const d = day();
+    if (res.paid) { d.spins++; S.totals.spins++; applyGain(25, 40, "ruleta"); }
+    else { toast("Giro de práctica cumplido. Eso es actitud.", "cool"); }
+    R.result = null; renderApp();
+  },
+  "spin-raja": () => {
+    if (S.boss && !S.boss.defeated) S.boss.hp = Math.min(S.boss.max, S.boss.hp + 30);
+    toast("Te rajaste. El rudo recupera 30.", "bad");
+    R.result = null; save(); renderApp();
+  },
+  "edit-mask": () => {
+    if (editingMask) { const inp = $("#v-name"); if (inp) { const v = inp.value.trim(); if (v) S.profile.name = v; } save(); }
+    editingMask = !editingMask; renderApp();
+  },
+  "diff": b => { S.profile.diff = +b.dataset.i; save(); renderApp(); },
+  "reset": b => armConfirm(b, "¿Seguro? Toca otra vez", async () => {
+    S = null; OB = null; notices = []; R.result = null;
+    try { localStorage.removeItem(LS_KEY); } catch (e) { /* ignore */ }
+    clearTimeout(saveTimer);
+    if (remote) { try { await remote.delete(); } catch (e) { /* ignore */ } }
+    window.scrollTo(0, 0);
+    startOnboarding();
+  }),
+  "modal-close": () => nextModal(),
+  "notice-close": b => { notices.splice(+b.dataset.i, 1); renderApp(); }
+};
+function checkRitualFlags(d) {
+  if (RITUALES.every(r => d.rit[r.id])) S.flags.rituales = true;
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]");
+  if (!b || b.disabled) return;
+  const fn = ACTIONS[b.dataset.act];
+  if (fn) fn(b, e);
+});
+document.addEventListener("input", e => {
+  if (e.target.id === "v-name" && S) {
+    const v = e.target.value.trim();
+    if (v) { S.profile.name = v; clearTimeout(saveTimer); saveTimer = setTimeout(() => save(), 600); }
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !$("#modal").hidden) nextModal();
+});
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    if (T && !T.done) lockScreen();
+    else if (S && !T) { ensureBoss(); renderApp(); }
+  }
+});
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (TAB === "ruleta") drawWheel(); });
+
+/* ================= start ================= */
+const h = (location.hash || "").slice(1);
+if (["arena", "combate", "ruleta", "vestidor"].includes(h)) TAB = h;
+const local = loadLocal();
+S = local && local.profile ? migrate(local) : null;
+boot();
+connectRemote();
+})();
+</script>
+<!-- ARTIFACT:END -->
+</body>
+</html>
